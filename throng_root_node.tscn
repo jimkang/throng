@@ -5,7 +5,7 @@
 
 [node name="throng_root_node" type="Node2D"]
 script = ExtResource("1_q6lao")
-map_dimensions = Vector2i(12, 12)
+map_dimensions = Vector2i(16, 16)
 
 [node name="dungeon_tilemap" type="TileMap" parent="."]
 texture_filter = 1
