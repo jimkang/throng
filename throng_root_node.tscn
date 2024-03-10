@@ -9,6 +9,5 @@ map_dimensions = Vector2i(16, 16)
 
 [node name="dungeon_tilemap" type="TileMap" parent="."]
 texture_filter = 1
-scale = Vector2(4, 4)
 tile_set = ExtResource("2_o32av")
 format = 2
