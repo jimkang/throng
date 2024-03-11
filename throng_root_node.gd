@@ -24,7 +24,7 @@ func generate_map():
 	
 	var floor_points = []
 	#floor_points.append_array(connect_points_linear(connect_test_cases[0][0], connect_test_cases[0][1], 4, []))
-	var number_of_iterations = randi_range(1, 2)
+	var number_of_iterations = randi_range(1, 4)
 	var current_node_pts = [Vector2i(
 		randi_range(0, map_dimensions[0]-1),
 		randi_range(0, map_dimensions[1]-1)
@@ -43,7 +43,7 @@ func generate_map():
 				# branched from; just the end points.
 				if branch_connections.size() > 0:
 					iter_node_pts.append(branch_connections.back())
-		print('iter ', i, ' results: ', iter_node_pts)
+		#print('iter ', i, ' results: ', iter_node_pts)
 		current_node_pts = iter_node_pts
 	
 	#for i in joints.size():
@@ -69,17 +69,18 @@ func create_branch(ref_points: Array, root_pt: Vector2i):
 	var connectors = connect_points(ref_points, root_pt, dest_pt, connect_points_linear)# connect_points_stepwise)
 	var branch_pts = [root_pt] + connectors + [dest_pt]
 	var diagonal_fills = get_diagonal_fills(ref_points, branch_pts)
+	print(root_pt, ' to ', dest_pt, ' branch_pts: ', branch_pts, ' fills: ', diagonal_fills)
 	return branch_pts + diagonal_fills
 	
 func connect_points(ref_array: Array, point_a: Vector2i, point_b: Vector2i, 
 connect_points_fn: Callable = connect_points_linear):
 	var steps = get_steps_needed_between_pts(point_a, point_b)
-	print('steps ', steps, ', point_a ',  point_a, ', point_b ', point_b)
+	#print('steps ', steps, ', point_a ',  point_a, ', point_b ', point_b)
 	var float_pt_a = Vector2(point_a)
 	var float_pt_b = Vector2(point_b)
 	
 	var connectors = connect_points_fn.call(float_pt_a, float_pt_b, steps, ref_array)		
-	print('a ', point_a, ' to b ', point_b, ' connectors ', connectors)
+	#print('a ', point_a, ' to b ', point_b, ' connectors ', connectors)
 	return connectors
 
 static func connect_points_linear(float_pt_a: Vector2, float_pt_b: Vector2, steps: int, ref_array: Array):
@@ -100,8 +101,7 @@ static func connect_points_stepwise(float_pt_a: Vector2, float_pt_b: Vector2, _s
 		y_min = y_max
 		y_max = float_pt_a.y
 		
-	for y in range(y_min, y_max):
-		print('y: ', y)
+	for y in range(y_min, y_max + 1):
 		non_dupe_append(connectors, ref_array, Vector2i(float_pt_a.x, y))
 	
 	var x_min = float_pt_a.x
@@ -110,14 +110,14 @@ static func connect_points_stepwise(float_pt_a: Vector2, float_pt_b: Vector2, _s
 		x_min = x_max
 		x_max = float_pt_a.x
 		
-	for x in range(x_min, x_max):
-		print('x: ', x)
+	for x in range(x_min, x_max + 1):
 		non_dupe_append(connectors, ref_array, Vector2i(x, float_pt_b.y))
+	print(float_pt_a, ' to ', float_pt_b, ' stepwise connectors: ', connectors)
 	return connectors
 
 static func get_diagonal_fills(existing_pts, line_pts):
 	var diagonal_fills = []
-	for i in range(1, line_pts.size() - 1):
+	for i in range(1, line_pts.size()):
 		var prev_pt: Vector2i = line_pts[i - 1] 
 		var pt = line_pts[i]
 		var delta_x = pt.x - prev_pt.x
