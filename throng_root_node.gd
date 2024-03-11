@@ -1,10 +1,8 @@
 extends Node2D
 
 @export var map_dimensions: Vector2i
-
-var connect_test_cases = [
-	[Vector2i(3, 6), Vector2i(8, 10)]
-]
+@export var map_gen_iteration_range: Array;
+@export var map_gen_branch_len_range: Array = [2.0, 10.0]
 
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
@@ -24,7 +22,9 @@ func generate_map():
 	
 	var floor_points = []
 	#floor_points.append_array(connect_points_linear(connect_test_cases[0][0], connect_test_cases[0][1], 4, []))
-	var number_of_iterations = randi_range(1, 4)
+	var number_of_iterations = randi_range(
+		map_gen_iteration_range[0], map_gen_iteration_range[0]
+	)
 	var current_node_pts = [Vector2i(
 		randi_range(0, map_dimensions[0]-1),
 		randi_range(0, map_dimensions[1]-1)
@@ -63,7 +63,7 @@ func generate_map():
 # ref_points are the points that should not be duplicated.
 func create_branch(ref_points: Array, root_pt: Vector2i):
 	var angle: float = randf_range(0.0, 2 * PI)
-	var dist: float = randf_range(2, 10)
+	var dist: float = randf_range(map_gen_branch_len_range[0], map_gen_branch_len_range[1])
 	var move_by = Vector2.from_angle(angle) * dist;	
 	var dest_pt: Vector2i = Vector2i(Vector2(root_pt) + move_by).clamp(Vector2i.ZERO, map_dimensions);
 	var connectors = connect_points(ref_points, root_pt, dest_pt, connect_points_linear)# connect_points_stepwise)
