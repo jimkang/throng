@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://v7pwf8m5fgod"]
+
+[ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="1_frxgq"]
+
+[node name="Alligator" instance=ExtResource("1_frxgq")]
+
+[node name="Sprite2D" parent="." index="0"]
+region_rect = Rect2(493, 136, 17, 16)

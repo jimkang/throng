@@ -6,6 +6,8 @@ extends Node2D
 @export var tile_size: int
 @export var Individual: PackedScene
 
+var Alligator = preload("res://alligator.tscn")
+
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
 }
@@ -25,6 +27,10 @@ func _ready():
 	var player = Individual.instantiate()
 	player.position = floor_points.pick_random() * tile_size
 	add_child(player)
+	
+	var alligator = Alligator.instantiate()
+	alligator.position = floor_points.pick_random() * tile_size
+	add_child(alligator)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
