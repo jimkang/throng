@@ -7,6 +7,7 @@ extends Node2D
 @export var Individual: PackedScene
 
 var Alligator = preload("res://alligator.tscn")
+var ThrongCentroid = preload('res://throng_centroid.tscn')
 
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
@@ -33,14 +34,20 @@ func _ready():
 	# position is the origin of the node. Since the node centers its children
 	# around the origin, we have to put the position in the center of the tile.
 	player.position = (player_location + half_unit_vec) * tile_size
+	print('Put player at ', player.position)
 	possible_individual_locations.erase(player_location)
 	add_child(player)
+	
+	var throng_centroid = ThrongCentroid.instantiate()
+	add_child(throng_centroid)
+	throng_centroid.position = player.position
 	
 	var alligator = Alligator.instantiate()
 	var alligator_location = Vector2(possible_individual_locations.pick_random())
 	alligator.position = (alligator_location + half_unit_vec) * tile_size
 	possible_individual_locations.erase(alligator_location)
 	add_child(alligator)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
