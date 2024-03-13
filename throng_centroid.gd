@@ -22,7 +22,4 @@ func handle_move():
 		y += 1
 
 	var move = Vector2(x * move_size, y * move_size)
-	var screen_size = get_window().size
 	self.position += move
-	self.position.x = clamp(self.position.x, 0, screen_size.x)
-	self.position.y = clamp(self.position.y, 0, screen_size.y)
