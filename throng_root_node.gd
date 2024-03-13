@@ -7,7 +7,7 @@ extends Node2D
 @export var Individual: PackedScene
 
 var Alligator = preload("res://alligator.tscn")
-var ThrongCentroid = preload('res://throng_centroid.tscn')
+var Throng = preload('res://throng.tscn')
 
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
@@ -26,8 +26,8 @@ func _ready():
 	)
 
 	for point in floor_points:
-		tilemap.set_cell(0, point, 0, tile_indexes_for_names.parquet) 
-	
+		tilemap.set_cell(0, point, 0, tile_indexes_for_names.parquet)
+
 	var possible_individual_locations = floor_points.duplicate()
 	var player = Individual.instantiate()
 	var player_location = Vector2(possible_individual_locations.pick_random())
@@ -37,17 +37,17 @@ func _ready():
 	print('Put player at ', player.position)
 	possible_individual_locations.erase(player_location)
 	add_child(player)
-	
-	var throng_centroid = ThrongCentroid.instantiate()
-	add_child(throng_centroid)
-	throng_centroid.position = player.position
-	
+
+	var throng = Throng.instantiate()
+	add_child(throng)
+	throng.position = player.position
+
 	var alligator = Alligator.instantiate()
 	var alligator_location = Vector2(possible_individual_locations.pick_random())
 	alligator.position = (alligator_location + half_unit_vec) * tile_size
 	possible_individual_locations.erase(alligator_location)
 	add_child(alligator)
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
