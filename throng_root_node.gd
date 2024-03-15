@@ -39,6 +39,7 @@ func _ready():
 	add_child(player)
 
 	var throng = Throng.instantiate()
+	throng.throng_id = 'player_throng'
 	add_child(throng)
 	throng.position = player.position
 
@@ -47,7 +48,9 @@ func _ready():
 	alligator.position = (alligator_location + half_unit_vec) * tile_size
 	possible_individual_locations.erase(alligator_location)
 	add_child(alligator)
-
+	
+	throng.add(player)
+	throng.add(alligator)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

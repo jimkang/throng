@@ -9,6 +9,7 @@ size = Vector2(64, 64)
 [node name="Individual" type="Node2D"]
 script = ExtResource("1_wiaqu")
 color_set = PackedColorArray(0.882353, 0.203922, 0.27451, 1, 0.0980392, 0.592157, 0.584314, 1)
+metadata/individual = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
