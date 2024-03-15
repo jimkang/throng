@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://don6vvn244jmf"]
+[gd_scene load_steps=6 format=3 uid="uid://don6vvn244jmf"]
 
 [ext_resource type="Script" path="res://throng_root_node.gd" id="1_q6lao"]
 [ext_resource type="TileSet" uid="uid://doexlnl8g0gf" path="res://throng_dungeon_tile_set.tres" id="2_o32av"]
 [ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="2_pxdvf"]
 [ext_resource type="Script" path="res://map_gen.gd" id="3_ipuia"]
+[ext_resource type="Script" path="res://dungeon_tilemap.gd" id="4_qr2dh"]
 
 [node name="throng_root_node" type="Node2D"]
 script = ExtResource("1_q6lao")
@@ -18,6 +19,7 @@ texture_filter = 1
 scale = Vector2(4, 4)
 tile_set = ExtResource("2_o32av")
 format = 2
+script = ExtResource("4_qr2dh")
 
 [node name="map_gen" type="Node" parent="."]
 script = ExtResource("3_ipuia")

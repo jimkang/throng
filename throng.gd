@@ -24,8 +24,16 @@ func handle_move():
 
 	if x != 0 or y != 0:
 		var move = Vector2(x * move_size, y * move_size)
-		self.position += move
-		get_tree().call_group(self.throng_id, 'move', move)
+		var result_array = []
+		get_tree().call_group(self.throng_id, 'move', move, result_array)
+		print('move_results: ', result_array)
+		var part_of_throng_moved = false
+		for result in result_array:
+			if result:
+				part_of_throng_moved = true
+				break
+		if part_of_throng_moved:
+			self.position += move
 
 func add(individual: Node):
 	if not individual.get_meta('individual'):
