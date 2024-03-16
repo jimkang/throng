@@ -41,6 +41,10 @@ func _ready():
 	var throng = Throng.instantiate()
 	throng.throng_id = 'throng_player'
 	add_child(throng)
+	if throng is Throng:
+		print('is class')
+	else:
+		print('is NOT class')
 	throng.position = player.position
 
 	var alligator = Alligator.instantiate()
@@ -50,7 +54,6 @@ func _ready():
 	add_child(alligator)
 	
 	throng.add(player)
-	#throng.add(alligator)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

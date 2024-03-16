@@ -1,3 +1,4 @@
+class_name Throng
 extends Node2D
 
 @export var move_size: int 

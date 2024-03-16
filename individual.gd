@@ -1,3 +1,4 @@
+class_name Individual
 extends Node2D
 
 @export var color_set: PackedColorArray
@@ -26,27 +27,51 @@ func move(move_vector: Vector2, result_array: Array):
 			query.collide_with_areas = true
 			query.position = next_pos
 			var collision_dicts = space_state.intersect_point(query)
-			print('collision_dicts', collision_dicts)
-			if collision_dicts.size() < 1:
-				self.position += move_vector
-				result = true
-			else:
-				assert(collision_dicts.size() == 1)
-				if collision_dicts[0].collider is Area2D:
-					var colliding_thing = collision_dicts[0].collider.get_parent()
-					print('would collide with', colliding_thing)
-					if colliding_thing.get_meta('individual'):
-						# TODO: Make this a static function.
-						var groups = colliding_thing.get_groups()
-						var is_in_a_throng = false
-						for group: String in groups:
-							if group.begins_with('throng_'):
-								is_in_a_throng = true
-								break
-						if not is_in_a_throng:
-							# NEXT: Find throng
-							print('Should add ', colliding_thing, ' to throng')
+			#print('collision_dicts', collision_dicts)
+			var self_throng_id = self.get_throng_id()
+			if self_throng_id:
+				if collision_dicts.size() < 1:
+					self.position += move_vector
+					result = true
+				else:
+					assert(collision_dicts.size() == 1)
+					if collision_dicts[0].collider is Area2D:
+						var colliding_thing = collision_dicts[0].collider.get_parent()
+						print('would collide with', colliding_thing)
+						if colliding_thing.get_meta('individual'):
+							# TODO: Make collision check a static function.
+							act_on_other(colliding_thing)
+
 	result_array.append(result)
+
+func act_on_other(other: Individual):
+	var groups = other.get_groups()
+	var is_in_a_throng = false # TOdO: any
+	for group: String in groups:
+		if group.begins_with('throng_'):
+			is_in_a_throng = true
+			break
+	if not is_in_a_throng:
+		print('Should add ', other, ' to throng')
+		var root = self.get_node('/root/throng_root_node')
+		var self_throng_id = self.get_throng_id()
+		var throng: Throng = find_obj(
+			root.get_children(),
+			func(obj): return obj.name == 'Throng' and obj.throng_id == self_throng_id
+		)
+		print('root throng: ', throng)
+		throng.add(other)
 
 func recruit(recruitee: Node):
 	pass
+
+func get_throng_id():
+	var groups = self.get_groups().filter(func (group: String): return group.begins_with('throng_'))
+	if groups.size() > 0:
+		assert(groups.size() == 1)
+		return groups[0]
+
+static func find_obj(array: Array, test: Callable):
+	var filtered = array.filter(test)
+	if filtered.size() > 0:
+		return filtered[0]
