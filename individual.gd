@@ -16,10 +16,10 @@ func _process(delta):
 # Returns true if we were actually able to move.
 func move(move_vector: Vector2, result_array: Array):
 	var next_pos = self.position + move_vector
-	var next_cell_pos = tilemap.local_to_map(tilemap.to_local(next_pos))
-	var dest_cell_data = tilemap.get_cell_tile_data(0, next_cell_pos)
+	var dest_cell_data := cell_data_at_pos(next_pos)
 	var result = false
 	if dest_cell_data:
+		# If the dest on a floor, then we can do something, maybe.
 		if dest_cell_data.get_custom_data('is_floor'):
 			var colliding_thing = Collision.find_colliding_things_at(
 				get_world_2d().direct_space_state, next_pos)
@@ -27,10 +27,15 @@ func move(move_vector: Vector2, result_array: Array):
 				if colliding_thing.get_meta('individual'):
 					act_on_other(colliding_thing)
 			else:
+				# If nothing's on the floor there, we can go there. 
 				self.position += move_vector
 				result = true
 
 	result_array.append(result)
+
+func cell_data_at_pos(pos: Vector2) -> TileData:
+	var next_cell_pos = tilemap.local_to_map(tilemap.to_local(pos))
+	return tilemap.get_cell_tile_data(0, next_cell_pos)
 
 func act_on_other(other: Individual):
 	# TODO: Individual's primary action, if any.
