@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://don6vvn244jmf"]
+[gd_scene load_steps=6 format=3 uid="uid://don6vvn244jmf"]
 
+[ext_resource type="Script" path="res://hierarchy.gd" id="1_ax7n6"]
 [ext_resource type="Script" path="res://throng_root_node.gd" id="1_q6lao"]
 [ext_resource type="TileSet" uid="uid://doexlnl8g0gf" path="res://throng_dungeon_tile_set.tres" id="2_o32av"]
 [ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="2_pxdvf"]
@@ -21,3 +22,6 @@ format = 2
 
 [node name="map_gen" type="Node" parent="."]
 script = ExtResource("3_ipuia")
+
+[node name="hierarchy_lib" type="Node" parent="."]
+script = ExtResource("1_ax7n6")

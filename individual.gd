@@ -55,7 +55,7 @@ func act_on_other(other: Individual):
 		print('Should add ', other, ' to throng')
 		var root = self.get_node('/root/throng_root_node')
 		var self_throng_id = self.get_throng_id()
-		var throng: Throng = find_obj(
+		var throng: Throng = Hierarchy.find_obj(
 			root.get_children(),
 			func(obj): return obj.name == 'Throng' and obj.throng_id == self_throng_id
 		)
@@ -70,8 +70,3 @@ func get_throng_id():
 	if groups.size() > 0:
 		assert(groups.size() == 1)
 		return groups[0]
-
-static func find_obj(array: Array, test: Callable):
-	var filtered = array.filter(test)
-	if filtered.size() > 0:
-		return filtered[0]
