@@ -12,6 +12,7 @@ color_set = PackedColorArray(0.882353, 0.203922, 0.27451, 1, 0.0980392, 0.592157
 metadata/individual = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("1_a8jrl")

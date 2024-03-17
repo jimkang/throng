@@ -13,8 +13,16 @@ func _ready():
 func _process(delta):
 	pass
 
+func _draw():
+	var dest_rect = $Sprite2D.get_rect()
+	#dest_rect.size *= $Sprite2D.scale
+	#dest_rect.position -= dest_rect.size/2
+	self.draw_set_transform($Sprite2D.position, 0, $Sprite2D.scale)
+	self.draw_texture_rect_region($Sprite2D.texture, dest_rect,
+	$Sprite2D.region_rect, $Sprite2D.modulate)
 # Returns true if we were actually able to move.
-func move(move_vector: Vector2, result_array: Array):
+# Does not update the sprite.
+func move_physics(move_vector: Vector2, result_array: Array):
 	var next_pos = self.position + move_vector
 	var dest_cell_data := cell_data_at_pos(next_pos)
 	var result = false

@@ -52,10 +52,10 @@ func move_throng(x: int, y: int):
 			await get_tree().physics_frame
 		assert(individual is Individual)
 		print('Moving: ', individual.name)
-		last_individual_did_move = individual.move(move, result_array)
+		last_individual_did_move = individual.move_physics(move, result_array)
 		#print('individual call back from await')
 
-	#get_tree().call_group(self.throng_id, 'move', move, result_array)
+	get_tree().call_group(self.throng_id, 'update_sprites')
 	# We need to update the camera in the same frame that we move the sprites
 	# in to avoid flicker. That's why we don't await physics_frame between a
 	# sprite update and the camera move below.
