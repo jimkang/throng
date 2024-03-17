@@ -26,6 +26,8 @@ func handle_move():
 	if x != 0 or y != 0:
 		var move = Vector2(x * move_size, y * move_size)
 		var result_array = []
+		# Next: See if there's a way to call the group in order to avoid
+		# unnecessary bumps among throng members.
 		get_tree().call_group(self.throng_id, 'move', move, result_array)
 		print('move_results: ', result_array)
 		var part_of_throng_moved = false

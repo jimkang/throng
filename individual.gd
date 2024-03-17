@@ -16,7 +16,6 @@ func move(move_vector: Vector2, result_array: Array):
 	var next_pos = self.position + move_vector
 	var tilemap: TileMap = self.get_node('/root/throng_root_node/dungeon_tilemap')
 	var next_cell_pos = tilemap.local_to_map(tilemap.to_local(next_pos))
-	print('next_cell_pos: ', next_cell_pos)
 	var dest_cell_data = tilemap.get_cell_tile_data(0, next_cell_pos)
 	var result = false
 	if dest_cell_data:
@@ -27,20 +26,17 @@ func move(move_vector: Vector2, result_array: Array):
 			query.collide_with_areas = true
 			query.position = next_pos
 			var collision_dicts = space_state.intersect_point(query)
-			#print('collision_dicts', collision_dicts)
-			var self_throng_id = self.get_throng_id()
-			if self_throng_id:
-				if collision_dicts.size() < 1:
-					self.position += move_vector
-					result = true
-				else:
-					assert(collision_dicts.size() == 1)
-					if collision_dicts[0].collider is Area2D:
-						var colliding_thing = collision_dicts[0].collider.get_parent()
-						print('would collide with', colliding_thing)
-						if colliding_thing.get_meta('individual'):
-							# TODO: Make collision check a static function.
-							act_on_other(colliding_thing)
+			if collision_dicts.size() < 1:
+				self.position += move_vector
+				result = true
+			else:
+				assert(collision_dicts.size() == 1)
+				if collision_dicts[0].collider is Area2D:
+					var colliding_thing = collision_dicts[0].collider.get_parent()
+					print('would collide with', colliding_thing)
+					if colliding_thing.get_meta('individual'):
+						# TODO: Make collision check a static function.
+						act_on_other(colliding_thing)
 
 	result_array.append(result)
 
