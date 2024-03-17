@@ -45,25 +45,24 @@ func move(move_vector: Vector2, result_array: Array):
 	result_array.append(result)
 
 func act_on_other(other: Individual):
-	var groups = other.get_groups()
+	# TODO: Individual's primary action, if any.
+	recruit(other)
+
+func recruit(recruitee: Individual):
+	var groups = recruitee.get_groups()
 	var is_in_a_throng = false # TOdO: any
 	for group: String in groups:
 		if group.begins_with('throng_'):
 			is_in_a_throng = true
 			break
 	if not is_in_a_throng:
-		print('Should add ', other, ' to throng')
 		var root = self.get_node('/root/throng_root_node')
 		var self_throng_id = self.get_throng_id()
 		var throng: Throng = Hierarchy.find_obj(
 			root.get_children(),
 			func(obj): return obj.name == 'Throng' and obj.throng_id == self_throng_id
 		)
-		print('root throng: ', throng)
-		throng.add(other)
-
-func recruit(recruitee: Node):
-	pass
+		throng.add(recruitee)
 
 func get_throng_id():
 	var groups = self.get_groups().filter(func (group: String): return group.begins_with('throng_'))
