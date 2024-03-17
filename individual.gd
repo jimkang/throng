@@ -32,6 +32,7 @@ func move(move_vector: Vector2, result_array: Array):
 				result = true
 
 	result_array.append(result)
+	return result
 
 func cell_data_at_pos(pos: Vector2) -> TileData:
 	var next_cell_pos = tilemap.local_to_map(tilemap.to_local(pos))

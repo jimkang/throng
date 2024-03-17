@@ -17,6 +17,8 @@ const half_unit_vec = Vector2(0.5, 0.5)
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_user_signal('individual_move_done', [{'name': 'result', 'type': TYPE_BOOL }])
+
 	var tilemap = $dungeon_tilemap
 	tilemap.add_layer(0)
 	var floor_points = $map_gen.generate_map(
@@ -47,11 +49,12 @@ func _ready():
 		print('is NOT class')
 	throng.position = player.position
 
-	var alligator = Alligator.instantiate()
-	var alligator_location = Vector2(possible_individual_locations.pick_random())
-	alligator.position = (alligator_location + half_unit_vec) * tile_size
-	possible_individual_locations.erase(alligator_location)
-	add_child(alligator)
+	for i in 2:
+		var alligator = Alligator.instantiate()
+		var alligator_location = Vector2(possible_individual_locations.pick_random())
+		alligator.position = (alligator_location + half_unit_vec) * tile_size
+		possible_individual_locations.erase(alligator_location)
+		add_child(alligator)
 	
 	throng.add(player)
 
