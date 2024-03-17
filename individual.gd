@@ -21,22 +21,15 @@ func move(move_vector: Vector2, result_array: Array):
 	if dest_cell_data:
 		var is_floor = dest_cell_data.get_custom_data('is_floor')		
 		if is_floor:
-			var space_state = get_world_2d().direct_space_state
-			var query := PhysicsPointQueryParameters2D.new()
-			query.collide_with_areas = true
-			query.position = next_pos
-			var collision_dicts = space_state.intersect_point(query)
-			if collision_dicts.size() < 1:
+			var colliding_thing = Collision.find_colliding_things_at(
+				get_world_2d().direct_space_state, next_pos)
+			if colliding_thing:
+				if colliding_thing.get_meta('individual'):
+					# TODO: Make collision check a static function.
+					act_on_other(colliding_thing)
+			else:
 				self.position += move_vector
 				result = true
-			else:
-				assert(collision_dicts.size() == 1)
-				if collision_dicts[0].collider is Area2D:
-					var colliding_thing = collision_dicts[0].collider.get_parent()
-					print('would collide with', colliding_thing)
-					if colliding_thing.get_meta('individual'):
-						# TODO: Make collision check a static function.
-						act_on_other(colliding_thing)
 
 	result_array.append(result)
 
