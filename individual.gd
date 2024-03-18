@@ -42,11 +42,7 @@ func act_on_other(other: Individual):
 
 func recruit(recruitee: Individual):
 	var groups = recruitee.get_groups()
-	var is_in_a_throng = false # TOdO: any
-	for group: String in groups:
-		if group.begins_with('throng_'):
-			is_in_a_throng = true
-			break
+	var is_in_a_throng = groups.any(func (group): return group.begins_with('throng_'))
 	if not is_in_a_throng:
 		var root = self.get_node('/root/throng_root_node')
 		var self_throng_id = self.get_throng_id()
