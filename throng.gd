@@ -46,10 +46,15 @@ func move_throng(x: int, y: int):
 	individuals.sort_custom(sort_fn)
 	print('post-sort: ', individuals)
 	
+	# Stop _process and draws, but keep physics going.
+	get_tree().paused = true
+	PhysicsServer2D.set_active(true)	
+	
 	var last_individual_did_move = false
 	for individual in individuals:
 		if last_individual_did_move:
 			await get_tree().physics_frame
+			# Updating sprites in separate frames causes flicker.
 		assert(individual is Individual)
 		print('Moving: ', individual.name)
 		last_individual_did_move = individual.move(move, result_array)
@@ -71,9 +76,9 @@ func move_throng(x: int, y: int):
 		#await get_tree().create_timer(0.1).timeout
 		##call_deferred('move', move)
 		self.position += move
-
-func move(move_by: Vector2):
-	self.position += move_by
+	# This delay prevents flicker!
+	await get_tree().create_timer(0.1).timeout
+	get_tree().paused = false
 
 func add(individual: Node):
 	if not individual.get_meta('individual'):
