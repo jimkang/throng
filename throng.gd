@@ -29,8 +29,6 @@ func handle_move(event):
 func move_throng(x: int, y: int):
 	var move = Vector2(x * move_size, y * move_size)
 	var result_array = []
-	# Next: See if there's a way to call the group in order to avoid
-	# unnecessary bumps among throng members.
 	var sort_fn = Hierarchy.compare_leftward
 	if x > 0:
 		sort_fn = Hierarchy.compare_rightward
@@ -42,42 +40,33 @@ func move_throng(x: int, y: int):
 				sort_fn = Hierarchy.compare_topwise
 				
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
-	print('pre-sort: ', individuals)
 	individuals.sort_custom(sort_fn)
-	print('post-sort: ', individuals)
 	
-	# Stop _process and draws, but keep physics going.
+	# Stop _process and draw calls, but keep physics going.
 	get_tree().paused = true
 	PhysicsServer2D.set_active(true)	
 	
+	var part_of_throng_moved = false
 	var last_individual_did_move = false
 	for individual in individuals:
 		if last_individual_did_move:
+			# We need to wait for the move to take effect so that the next
+			# collision calculations take it into account.
 			await get_tree().physics_frame
-			# Updating sprites in separate frames causes flicker.
 		assert(individual is Individual)
 		print('Moving: ', individual.name)
-		last_individual_did_move = individual.move(move, result_array)
-		#print('individual call back from await')
-
-	#get_tree().call_group(self.throng_id, 'move', move, result_array)
-	# We need to update the camera in the same frame that we move the sprites
-	# in to avoid flicker. That's why we don't await physics_frame between a
-	# sprite update and the camera move below.
-	var part_of_throng_moved = false
-	for result in result_array:
-		if result:
-			part_of_throng_moved = true
-			break
+		last_individual_did_move = individual.move(move)
+		if !part_of_throng_moved:
+			part_of_throng_moved = last_individual_did_move
+	
 	if part_of_throng_moved:
-		#await get_tree().physics_frame
-		#var tween = get_tree().create_tween()
-		#tween.tween_property(self, 'position', self.position + move, 1)
-		#await get_tree().create_timer(0.1).timeout
-		##call_deferred('move', move)
 		self.position += move
-	# This delay prevents flicker!
+
+	# This delay prevents flicker! I think it makes it so that all of the
+	# drawing that needs to be done as a result of the moves above are done
+	# in one frame.
 	await get_tree().create_timer(0.1).timeout
+	# Unpause to get _process and _draw going again.
 	get_tree().paused = false
 
 func add(individual: Node):

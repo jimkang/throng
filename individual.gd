@@ -14,7 +14,7 @@ func _process(delta):
 	pass
 
 # Returns true if we were actually able to move.
-func move(move_vector: Vector2, result_array: Array):
+func move(move_vector: Vector2):
 	var next_pos = self.position + move_vector
 	var dest_cell_data := cell_data_at_pos(next_pos)
 	var result = false
@@ -30,8 +30,6 @@ func move(move_vector: Vector2, result_array: Array):
 				# If nothing's on the floor there, we can go there. 
 				self.position += move_vector
 				result = true
-
-	result_array.append(result)
 	return result
 
 func cell_data_at_pos(pos: Vector2) -> TileData:
