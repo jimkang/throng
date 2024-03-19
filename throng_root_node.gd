@@ -35,10 +35,11 @@ func _ready():
 	var player_location = Vector2(possible_individual_locations.pick_random())
 	# position is the origin of the node. Since the node centers its children
 	# around the origin, we have to put the position in the center of the tile.
-	player.position = (player_location + half_unit_vec) * tile_size
-	print('Put player at ', player.position)
+	player.find_child('Area2D').position = (player_location + half_unit_vec) * tile_size
+	print('Put player at ', player.find_child('Area2D').position)
 	possible_individual_locations.erase(player_location)
 	add_child(player)
+	player.sync_presentation()
 
 	var throng = Throng.instantiate()
 	throng.throng_id = 'throng_player'
@@ -47,14 +48,15 @@ func _ready():
 		print('is class')
 	else:
 		print('is NOT class')
-	throng.position = player.position
+	throng.position = player.find_child('Area2D').position
 
 	for i in 2:
 		var alligator = Alligator.instantiate()
 		var alligator_location = Vector2(possible_individual_locations.pick_random())
-		alligator.position = (alligator_location + half_unit_vec) * tile_size
+		alligator.find_child('Area2D').position = (alligator_location + half_unit_vec) * tile_size
 		possible_individual_locations.erase(alligator_location)
 		add_child(alligator)
+		alligator.sync_presentation()
 	
 	throng.add(player)
 

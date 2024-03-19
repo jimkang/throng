@@ -13,9 +13,13 @@ func _ready():
 func _process(delta):
 	pass
 
+func sync_presentation():
+	print('setting sprite at ', $Sprite2D.position, ' to ', $Area2D.position)
+	$Sprite2D.position = $Area2D.position
+	
 # Returns true if we were actually able to move.
 func move(move_vector: Vector2):
-	var next_pos = self.position + move_vector
+	var next_pos = $Area2D.position + move_vector
 	var dest_cell_data := cell_data_at_pos(next_pos)
 	var result = false
 	if dest_cell_data:
@@ -28,7 +32,7 @@ func move(move_vector: Vector2):
 					act_on_other(colliding_thing)
 			else:
 				# If nothing's on the floor there, we can go there. 
-				self.position += move_vector
+				$Area2D.position += move_vector
 				result = true
 	return result
 

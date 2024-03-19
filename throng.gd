@@ -43,9 +43,10 @@ func move_throng(x: int, y: int):
 	individuals.sort_custom(sort_fn)
 	
 	# Stop _process and draw calls, but keep physics going.
-	get_tree().paused = true
-	PhysicsServer2D.set_active(true)	
+	#get_tree().paused = true
+	#PhysicsServer2D.set_active(true)	
 	
+	var moved_individuals = []
 	var part_of_throng_moved = false
 	var last_individual_did_move = false
 	for individual in individuals:
@@ -56,18 +57,24 @@ func move_throng(x: int, y: int):
 		assert(individual is Individual)
 		print('Moving: ', individual.name)
 		last_individual_did_move = individual.move(move)
+		if (last_individual_did_move):
+			moved_individuals.append(individual)
+			
 		if !part_of_throng_moved:
 			part_of_throng_moved = last_individual_did_move
 	
+	for individual in moved_individuals:
+		individual.sync_presentation()
+	
 	if part_of_throng_moved:
 		self.position += move
-
+	# TODO: Disembody sprite
 	# This delay prevents flicker! I think it makes it so that all of the
 	# drawing that needs to be done as a result of the moves above are done
 	# in one frame.
-	await get_tree().create_timer(0.1).timeout
+	#await get_tree().create_timer(0.1).timeout
 	# Unpause to get _process and _draw going again.
-	get_tree().paused = false
+	#get_tree().paused = false
 
 func add(individual: Node):
 	if not individual.get_meta('individual'):
