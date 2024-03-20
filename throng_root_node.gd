@@ -39,6 +39,7 @@ func _ready():
 	print('Put player at ', player.position)
 	possible_individual_locations.erase(player_location)
 	add_child(player)
+	player.sync_presentation()
 
 	var throng = Throng.instantiate()
 	throng.throng_id = 'throng_player'
@@ -55,6 +56,7 @@ func _ready():
 		alligator.position = (alligator_location + half_unit_vec) * tile_size
 		possible_individual_locations.erase(alligator_location)
 		add_child(alligator)
+		alligator.sync_presentation()
 	
 	throng.add(player)
 

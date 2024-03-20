@@ -3,15 +3,25 @@ extends Node2D
 
 @export var color_set: PackedColorArray
 var tilemap: TileMap
+var sprite: Sprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Sprite2D.modulate = color_set[randi_range(0, color_set.size()-1)]
+	# Keep a reference to the sprite but remove it as a child so that when
+	# this node's position changes, the sprite's does not. This makes it possible
+	# to batch sprite updates in a single frame and avoid flicker.
+	self.sprite = $Sprite2D
+	remove_child($Sprite2D)
+	self.get_node('/root/throng_root_node/sprite_root').add_child(self.sprite)
+	self.sprite.modulate = color_set[randi_range(0, color_set.size()-1)]
 	tilemap = self.get_node('/root/throng_root_node/dungeon_tilemap')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func sync_presentation():
+	self.sprite.position = self.position
 
 # Returns true if we were actually able to move.
 func move(move_vector: Vector2):

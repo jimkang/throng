@@ -29,3 +29,5 @@ script = ExtResource("1_ax7n6")
 
 [node name="collision_lib" type="Node" parent="."]
 script = ExtResource("6_c0q8j")
+
+[node name="sprite_root" type="Node2D" parent="."]
