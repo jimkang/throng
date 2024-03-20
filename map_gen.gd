@@ -38,7 +38,7 @@ static func create_branch(ref_points: Array, root_pt: Vector2i, map_gen_branch_l
 	var connectors = connect_points(ref_points, root_pt, dest_pt, Map_Gen.connect_points_linear)# connect_points_stepwise)
 	var branch_pts = [root_pt] + connectors + [dest_pt]
 	var diagonal_fills = get_diagonal_fills(ref_points, branch_pts)
-	print(root_pt, ' to ', dest_pt, ' branch_pts: ', branch_pts, ' fills: ', diagonal_fills)
+	#print(root_pt, ' to ', dest_pt, ' branch_pts: ', branch_pts, ' fills: ', diagonal_fills)
 	return branch_pts + diagonal_fills
 
 
@@ -63,7 +63,7 @@ static func connect_points_stepwise(float_pt_a: Vector2, float_pt_b: Vector2, _s
 		
 	for x in range(x_min, x_max + 1):
 		non_dupe_append(connectors, ref_array, Vector2i(x, float_pt_b.y))
-	print(float_pt_a, ' to ', float_pt_b, ' stepwise connectors: ', connectors)
+	#print(float_pt_a, ' to ', float_pt_b, ' stepwise connectors: ', connectors)
 	return connectors
 
 static func connect_points_linear(float_pt_a: Vector2, float_pt_b: Vector2, steps: int, ref_array: Array):

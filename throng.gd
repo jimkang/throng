@@ -43,7 +43,6 @@ func move_throng(x: int, y: int):
 	individuals.sort_custom(sort_fn)	
 	
 	var moved_individuals = []
-	var part_of_throng_moved = false
 	var last_individual_did_move = false
 	for individual in individuals:
 		if last_individual_did_move:
@@ -60,7 +59,12 @@ func move_throng(x: int, y: int):
 		individual.sync_presentation()
 
 	if moved_individuals.size() > 0:
-		self.position += move
+		self.position = get_center_of_group(individuals)
+	
+func get_center_of_group(group: Array) -> Vector2:
+	var positions = group.map(func (member): return member.position)
+	print('group positions: ', positions, ' center: ', Geometry.find_box_center(positions))
+	return Vector2(Geometry.find_box_center(positions))
 
 func add(individual: Node):
 	if not individual.get_meta('individual'):

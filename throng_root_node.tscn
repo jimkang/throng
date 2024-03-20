@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://don6vvn244jmf"]
+[gd_scene load_steps=8 format=3 uid="uid://don6vvn244jmf"]
 
 [ext_resource type="Script" path="res://hierarchy.gd" id="1_ax7n6"]
 [ext_resource type="Script" path="res://throng_root_node.gd" id="1_q6lao"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="2_pxdvf"]
 [ext_resource type="Script" path="res://map_gen.gd" id="3_ipuia"]
 [ext_resource type="Script" path="res://collision_lib.gd" id="6_c0q8j"]
+[ext_resource type="Script" path="res://geometry_lib.gd" id="7_o33ad"]
 
 [node name="throng_root_node" type="Node2D"]
 script = ExtResource("1_q6lao")
@@ -31,3 +32,6 @@ script = ExtResource("1_ax7n6")
 script = ExtResource("6_c0q8j")
 
 [node name="sprite_root" type="Node2D" parent="."]
+
+[node name="geometry_lib" type="Node" parent="."]
+script = ExtResource("7_o33ad")

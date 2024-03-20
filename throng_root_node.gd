@@ -50,7 +50,7 @@ func _ready():
 		print('is NOT class')
 	throng.position = player.position
 
-	for i in 2:
+	for i in 5:
 		var alligator = Alligator.instantiate()
 		var alligator_location = Vector2(possible_individual_locations.pick_random())
 		alligator.position = (alligator_location + half_unit_vec) * tile_size
