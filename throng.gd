@@ -10,7 +10,8 @@ extends Node2D
 func _ready():
 	pass # Replace with function body.
 
-func _input(event):
+func _unhandled_key_input(event):
+	print('throng input received')
 	handle_move(event)
 
 func handle_move(event):

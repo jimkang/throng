@@ -16,6 +16,10 @@ func _ready():
 	
 	self.sprite_root.get_child(0).modulate = color_set[randi_range(0, color_set.size()-1)]
 
+
+func _unhandled_key_input(event):
+	print('individual input received', event)
+	
 func animation_op(animation_player, animation_name):
 	animation_player.play(animation_name)
 	await animation_player.animation_finished
