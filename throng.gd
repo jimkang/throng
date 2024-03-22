@@ -3,18 +3,15 @@ extends Node2D
 
 @export var move_size: int 
 @export var throng_id: String
+@export var initiative: int = 1
 
 @onready var sprite_presenter: SpritePresenter = $/root/throng_root_node/sprite_presenter
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	self.add_to_group('throngs')
 
-func _unhandled_key_input(event):
-	print('throng input received')
-	handle_move(event)
-
-func handle_move(event):
+func take_turn(event):
 	var x = 0
 	var y = 0
 	if event.is_action_released("ui_left"):
@@ -42,7 +39,7 @@ func move_throng(x: int, y: int):
 				sort_fn = Hierarchy.compare_topwise
 				
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
-	individuals.sort_custom(sort_fn)	
+	individuals.sort_custom(sort_fn)
 	
 	var moved_individuals = []
 	var last_individual_did_move = false
@@ -70,3 +67,4 @@ func add(individual: Node):
 	if not individual.get_meta('individual'):
 		return
 	individual.add_to_group(self.throng_id)
+	individual.remove_from_group('individuals')

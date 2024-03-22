@@ -17,7 +17,10 @@ static func compare_rightward(a: Node, b: Node) -> bool:
 	assert(a is Node2D)
 	assert(b is Node2D)
 	return a.position.x > b.position.x
-	
+
+static func compare_init(a, b):
+	return a.initiative < b.initiative
+
 static func compare_topwise(a: Node, b: Node) -> bool:
 	assert(a is Node2D)
 	assert(b is Node2D)

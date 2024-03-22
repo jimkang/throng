@@ -57,6 +57,8 @@ func _ready():
 
 	for i in 5:
 		var alligator = alligator_scene.instantiate()
+		alligator.name = '%s_%d' % [alligator.get_class(), i]
+		#alligator.unique_name_in_owner = true
 		add_child(alligator)
 		var alligator_location = Vector2(possible_individual_locations.pick_random())
 		alligator.change_position((alligator_location + half_unit_vec) * tile_size)
@@ -65,7 +67,3 @@ func _ready():
 	
 	throng.add(player)
 	self.sprite_presenter.sync_presentation()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
