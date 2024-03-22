@@ -2,6 +2,7 @@ class_name Individual
 extends Node2D
 
 @export var color_set: PackedColorArray
+@export var initiative: int = 10
 @onready var tilemap: TileMap = $/root/throng_root_node/dungeon_tilemap
 @onready var sprite_root: Node2D = $sprite_root
 @onready var sprite_presenter: SpritePresenter = $/root/throng_root_node/sprite_presenter
@@ -13,21 +14,20 @@ func _ready():
 	# to batch sprite updates in a single frame and avoid flicker.
 	remove_child($sprite_root)
 	self.sprite_presenter.add_child(self.sprite_root)
+	self.add_to_group('individuals')
 	
 	self.sprite_root.get_child(0).modulate = color_set[randi_range(0, color_set.size()-1)]
 
-
-func _unhandled_key_input(event):
-	print('individual input received', event)
-	
 func animation_op(animation_player, animation_name):
 	animation_player.play(animation_name)
 	await animation_player.animation_finished
-			
-	# Next: Manage death and not disappearing before necessary animation.
-func sprite_move_op(node, new_position):	
+
+func sprite_move_op(node, new_position):
 	node.position = new_position
 
+func take_turn(event):
+	pass
+	
 # Returns true if we were actually able to move.
 func move(move_vector: Vector2):
 	var next_pos = self.position + move_vector

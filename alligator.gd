@@ -1,6 +1,15 @@
 class_name Alligator extends Individual
 
-# Next: Decide on this inheritance situation with AnimatedSprite2d.
+var cardinal_directions = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+
+func take_turn(event):
+	super.take_turn(event)
+	if (randi_range(0, 3) > 2):
+		return
+
+	var tile_size = $/root/throng_root_node.tile_size
+	self.move(self.cardinal_directions.pick_random() * tile_size)
+
 func act_on_other(other: Individual):
 	var turn_over = bite(other)
 	if !turn_over:
@@ -12,3 +21,6 @@ func bite(bitee: Individual):
 	))
 	bitee.die()
 	return true
+
+func _to_string():
+	return 'Alligator_' + self.name

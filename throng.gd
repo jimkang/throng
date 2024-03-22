@@ -3,18 +3,13 @@ extends Node2D
 
 @export var move_size: int 
 @export var throng_id: String
-
-@onready var sprite_presenter: SpritePresenter = $/root/throng_root_node/sprite_presenter
+@export var initiative: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	self.add_to_group('throngs')
 
-func _unhandled_key_input(event):
-	print('throng input received')
-	handle_move(event)
-
-func handle_move(event):
+func take_turn(event):
 	var x = 0
 	var y = 0
 	if event.is_action_released("ui_left"):
@@ -27,7 +22,7 @@ func handle_move(event):
 		y += 1
 
 	if x != 0 or y != 0:
-		move_throng(x, y)
+		await move_throng(x, y)
 
 func move_throng(x: int, y: int):
 	var move = Vector2(x * move_size, y * move_size)
@@ -42,7 +37,8 @@ func move_throng(x: int, y: int):
 				sort_fn = Hierarchy.compare_topwise
 				
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
-	individuals.sort_custom(sort_fn)	
+	individuals.sort_custom(sort_fn)
+	print('move_throng working on', individuals)
 	
 	var moved_individuals = []
 	var last_individual_did_move = false
@@ -52,15 +48,14 @@ func move_throng(x: int, y: int):
 			# collision calculations take it into account.
 			await get_tree().physics_frame
 		assert(individual is Individual)
-		print('Moving: ', individual.name)
+		print('Throng moving: ', individual.name)
 		last_individual_did_move = individual.move(move)
 		if last_individual_did_move:
 			moved_individuals.append(individual)
-	
-		await self.sprite_presenter.sync_presentation()		
+
 		# Can't use the existing individuals var here because some of them may have died.
 		self.position = get_center_of_group(get_tree().get_nodes_in_group(self.throng_id))
-	
+
 func get_center_of_group(group: Array) -> Vector2:
 	var positions = group.map(func (member): return member.position)
 	#print('group positions: ', positions, ' center: ', Geometry.find_box_center(positions))
@@ -70,3 +65,4 @@ func add(individual: Node):
 	if not individual.get_meta('individual'):
 		return
 	individual.add_to_group(self.throng_id)
+	individual.remove_from_group('individuals')

@@ -21,4 +21,5 @@ static func print_collisions(collision_dicts):
 		var collider = dict.collider
 		var collider_parent = collider.get_parent()
 		print('collision ', i, ': is Area2D: ', collider is Area2D,
-		' collider: ', collider, ' parent: ', collider_parent)
+		', collider: ', collider, ', at : ', collider_parent.position,
+		', parent: ', collider_parent)
