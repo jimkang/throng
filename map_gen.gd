@@ -53,7 +53,7 @@ static func connect_points_stepwise(float_pt_a: Vector2, float_pt_b: Vector2, _s
 		y_max = float_pt_a.y
 		
 	for y in range(y_min, y_max + 1):
-		non_dupe_append(connectors, ref_array, Vector2i(float_pt_a.x, y))
+		non_dupe_append(connectors, ref_array, Vector2i(int(float_pt_a.x), y))
 	
 	var x_min = float_pt_a.x
 	var x_max = x_min + a_to_b.x
@@ -62,7 +62,7 @@ static func connect_points_stepwise(float_pt_a: Vector2, float_pt_b: Vector2, _s
 		x_max = float_pt_a.x
 		
 	for x in range(x_min, x_max + 1):
-		non_dupe_append(connectors, ref_array, Vector2i(x, float_pt_b.y))
+		non_dupe_append(connectors, ref_array, Vector2i(x, int(float_pt_b.y)))
 	#print(float_pt_a, ' to ', float_pt_b, ' stepwise connectors: ', connectors)
 	return connectors
 

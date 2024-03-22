@@ -4,6 +4,8 @@ extends Node2D
 @export var move_size: int 
 @export var throng_id: String
 
+@onready var sprite_presenter: SpritePresenter = $/root/throng_root_node/sprite_presenter
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -28,7 +30,6 @@ func handle_move(event):
 
 func move_throng(x: int, y: int):
 	var move = Vector2(x * move_size, y * move_size)
-	var result_array = []
 	var sort_fn = Hierarchy.compare_leftward
 	if x > 0:
 		sort_fn = Hierarchy.compare_rightward
@@ -55,15 +56,13 @@ func move_throng(x: int, y: int):
 		if last_individual_did_move:
 			moved_individuals.append(individual)
 	
-	for individual in moved_individuals:
-		individual.sync_presentation()
-
-	if moved_individuals.size() > 0:
-		self.position = get_center_of_group(individuals)
+		await self.sprite_presenter.sync_presentation()		
+		# Can't use the existing individuals var here because some of them may have died.
+		self.position = get_center_of_group(get_tree().get_nodes_in_group(self.throng_id))
 	
 func get_center_of_group(group: Array) -> Vector2:
 	var positions = group.map(func (member): return member.position)
-	print('group positions: ', positions, ' center: ', Geometry.find_box_center(positions))
+	#print('group positions: ', positions, ' center: ', Geometry.find_box_center(positions))
 	return Vector2(Geometry.find_box_center(positions))
 
 func add(individual: Node):

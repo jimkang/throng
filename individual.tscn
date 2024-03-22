@@ -12,7 +12,14 @@ script = ExtResource("1_wiaqu")
 color_set = PackedColorArray(0.882353, 0.203922, 0.27451, 1, 0.0980392, 0.592157, 0.584314, 1)
 metadata/individual = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_twcyw")
+
+[node name="sprite_root" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="sprite_root"]
 process_mode = 1
 texture_filter = 1
 scale = Vector2(4, 4)
@@ -20,7 +27,6 @@ texture = ExtResource("1_a8jrl")
 region_enabled = true
 region_rect = Rect2(459, 136, 16, 16)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sprite_root"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_twcyw")
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

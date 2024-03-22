@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://hierarchy.gd" id="1_ax7n6"]
 [ext_resource type="Script" path="res://throng_root_node.gd" id="1_q6lao"]
 [ext_resource type="TileSet" uid="uid://doexlnl8g0gf" path="res://throng_dungeon_tile_set.tres" id="2_o32av"]
-[ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="2_pxdvf"]
 [ext_resource type="Script" path="res://map_gen.gd" id="3_ipuia"]
 [ext_resource type="Script" path="res://collision_lib.gd" id="6_c0q8j"]
+[ext_resource type="Script" path="res://sprite_presenter.gd" id="6_efj58"]
 [ext_resource type="Script" path="res://geometry_lib.gd" id="7_o33ad"]
 
 [node name="throng_root_node" type="Node2D"]
@@ -14,7 +14,6 @@ map_dimensions = Vector2i(24, 24)
 map_gen_iteration_range = [4, 7]
 map_gen_branch_len_range = [2.0, 12.0]
 tile_size = 64
-Individual = ExtResource("2_pxdvf")
 
 [node name="dungeon_tilemap" type="TileMap" parent="."]
 texture_filter = 1
@@ -31,7 +30,8 @@ script = ExtResource("1_ax7n6")
 [node name="collision_lib" type="Node" parent="."]
 script = ExtResource("6_c0q8j")
 
-[node name="sprite_root" type="Node2D" parent="."]
+[node name="sprite_presenter" type="Node2D" parent="."]
+script = ExtResource("6_efj58")
 
 [node name="geometry_lib" type="Node" parent="."]
 script = ExtResource("7_o33ad")

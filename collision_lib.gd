@@ -9,6 +9,7 @@ static func find_colliding_things_at(space_state: PhysicsDirectSpaceState2D, pos
 	if collision_dicts.size() < 1:
 		return
 	else:
+		print('collisions: ', collision_dicts.map(func (dict): dict.collider.get_parent()))
 		assert(collision_dicts.size() == 1)
 		if collision_dicts[0].collider is Area2D:
 			var colliding_thing = collision_dicts[0].collider.get_parent()
