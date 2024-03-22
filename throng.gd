@@ -5,8 +5,6 @@ extends Node2D
 @export var throng_id: String
 @export var initiative: int = 1
 
-@onready var sprite_presenter: SpritePresenter = $/root/throng_root_node/sprite_presenter
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.add_to_group('throngs')
@@ -53,8 +51,7 @@ func move_throng(x: int, y: int):
 		last_individual_did_move = individual.move(move)
 		if last_individual_did_move:
 			moved_individuals.append(individual)
-	
-		await self.sprite_presenter.sync_presentation()		
+			
 		# Can't use the existing individuals var here because some of them may have died.
 		self.position = get_center_of_group(get_tree().get_nodes_in_group(self.throng_id))
 	

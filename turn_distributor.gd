@@ -13,3 +13,4 @@ func _unhandled_key_input(event):
 	print('Giving turns to free individuals: ', free_indivs)
 	for individual in free_indivs:
 		await individual.take_turn(event)
+	await $'../sprite_presenter'.sync_presentation()	
