@@ -22,7 +22,7 @@ func take_turn(event):
 		y += 1
 
 	if x != 0 or y != 0:
-		move_throng(x, y)
+		await move_throng(x, y)
 
 func move_throng(x: int, y: int):
 	var move = Vector2(x * move_size, y * move_size)
@@ -38,6 +38,7 @@ func move_throng(x: int, y: int):
 				
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
 	individuals.sort_custom(sort_fn)
+	print('move_throng working on', individuals)
 	
 	var moved_individuals = []
 	var last_individual_did_move = false
@@ -47,14 +48,14 @@ func move_throng(x: int, y: int):
 			# collision calculations take it into account.
 			await get_tree().physics_frame
 		assert(individual is Individual)
-		print('Moving: ', individual.name)
+		print('Throng moving: ', individual.name)
 		last_individual_did_move = individual.move(move)
 		if last_individual_did_move:
 			moved_individuals.append(individual)
-			
+
 		# Can't use the existing individuals var here because some of them may have died.
 		self.position = get_center_of_group(get_tree().get_nodes_in_group(self.throng_id))
-	
+
 func get_center_of_group(group: Array) -> Vector2:
 	var positions = group.map(func (member): return member.position)
 	#print('group positions: ', positions, ' center: ', Geometry.find_box_center(positions))
