@@ -56,13 +56,16 @@ func _ready():
 	throng.position = player.position
 
 	for i in 5:
-		var alligator = alligator_scene.instantiate()
-		alligator.name = '%s_%d' % [alligator.get_class(), i]
+		var indiv_scene = individual_scene
+		if randi_range(0, 3) > 0:
+			indiv_scene = alligator_scene		
+		var individual = indiv_scene.instantiate()
+		individual.name = '%s_%d' % [individual.get_class(), i]
 		#alligator.unique_name_in_owner = true
-		add_child(alligator)
-		var alligator_location = Vector2(possible_individual_locations.pick_random())
-		alligator.change_position((alligator_location + half_unit_vec) * tile_size)
-		possible_individual_locations.erase(alligator_location)		
+		add_child(individual)
+		var location = Vector2(possible_individual_locations.pick_random())
+		individual.change_position((location + half_unit_vec) * tile_size)
+		possible_individual_locations.erase(location)		
 		#alligator.sync_presentation()
 	
 	throng.add(player)
