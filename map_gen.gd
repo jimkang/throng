@@ -3,21 +3,22 @@ extends Node
 class_name Map_Gen
 
 static func generate_map(number_of_iterations: int, 
-	map_gen_branch_len_range: Array, map_dimensions: Vector2i):
+	map_gen_branch_len_range: Array, map_dimensions: Vector2i,
+	rng: RandomNumberGenerator):
 	var floor_points = []
 
 	var current_node_pts = [Vector2i(
-		randi_range(0, map_dimensions[0]-1),
-		randi_range(0, map_dimensions[1]-1)
+		rng.randi_range(0, map_dimensions[0]-1),
+		rng.randi_range(0, map_dimensions[1]-1)
 		)]
 	
 	for i in number_of_iterations:
 		var iter_node_pts = []
 		for node_pt in current_node_pts:
-			var number_of_branches = randi_range(1, 3)
+			var number_of_branches = rng.randi_range(1, 3)
 			for j in number_of_branches:
 				var branch_connections: Array = create_branch(floor_points, 
-				node_pt, map_gen_branch_len_range, map_dimensions)
+				node_pt, map_gen_branch_len_range, map_dimensions, rng)
 				# Put the branch points into the array from which tiles will be
 				# drawn.
 				floor_points.append_array(branch_connections)
@@ -30,9 +31,10 @@ static func generate_map(number_of_iterations: int,
 	return floor_points
 
 # ref_points are the points that should not be duplicated.
-static func create_branch(ref_points: Array, root_pt: Vector2i, map_gen_branch_len_range: Array, map_dimensions: Vector2i):
-	var angle: float = randf_range(0.0, 2 * PI)
-	var dist: float = randf_range(map_gen_branch_len_range[0], map_gen_branch_len_range[1])
+static func create_branch(ref_points: Array, root_pt: Vector2i, map_gen_branch_len_range: Array,
+map_dimensions: Vector2i, rng: RandomNumberGenerator):
+	var angle: float = rng.randf_range(0.0, 2 * PI)
+	var dist: float = rng.randf_range(map_gen_branch_len_range[0], map_gen_branch_len_range[1])
 	var move_by = Vector2.from_angle(angle) * dist;	
 	var dest_pt: Vector2i = Vector2i(Vector2(root_pt) + move_by).clamp(Vector2i.ZERO, map_dimensions);
 	var connectors = connect_points(ref_points, root_pt, dest_pt, Map_Gen.connect_points_linear)# connect_points_stepwise)
@@ -53,7 +55,7 @@ static func connect_points_stepwise(float_pt_a: Vector2, float_pt_b: Vector2, _s
 		y_max = float_pt_a.y
 		
 	for y in range(y_min, y_max + 1):
-		non_dupe_append(connectors, ref_array, Vector2i(int(float_pt_a.x), y))
+		BasicUtils.non_dupe_append(connectors, ref_array, Vector2i(int(float_pt_a.x), y))
 	
 	var x_min = float_pt_a.x
 	var x_max = x_min + a_to_b.x
@@ -62,7 +64,7 @@ static func connect_points_stepwise(float_pt_a: Vector2, float_pt_b: Vector2, _s
 		x_max = float_pt_a.x
 		
 	for x in range(x_min, x_max + 1):
-		non_dupe_append(connectors, ref_array, Vector2i(x, int(float_pt_b.y)))
+		BasicUtils.non_dupe_append(connectors, ref_array, Vector2i(x, int(float_pt_b.y)))
 	#print(float_pt_a, ' to ', float_pt_b, ' stepwise connectors: ', connectors)
 	return connectors
 
@@ -71,7 +73,7 @@ static func connect_points_linear(float_pt_a: Vector2, float_pt_b: Vector2, step
 	var step_size = 1.0/steps
 	for i in steps:
 		var step_pt = Vector2i(float_pt_a.lerp(float_pt_b, i * step_size))
-		non_dupe_append(connectors, ref_array, step_pt)
+		BasicUtils.non_dupe_append(connectors, ref_array, step_pt)
 	return connectors
 
 static func get_diagonal_fills(existing_pts, line_pts):
@@ -106,8 +108,3 @@ static func get_steps_needed_between_pts(point_a, point_b):
 		steps = height
 	return steps
 	
-static func non_dupe_append(array, ref_array, thing):
-	if not thing in ref_array and not thing in array:
-		array.append(thing)
-		return true
-	return false

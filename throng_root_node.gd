@@ -14,18 +14,25 @@ var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
 }
 const half_unit_vec = Vector2(0.5, 0.5)
+var rng: RandomNumberGenerator
 
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var seed_val = randi()
+	#var seed_val = 1414371858 # Generates an alligator on top of a blob
+	print('seed: ', seed_val)
+	self.rng = RandomNumberGenerator.new()
+	self.rng.seed = seed_val
 	add_user_signal('individual_move_done', [{'name': 'result', 'type': TYPE_BOOL }])
 
 	var tilemap = $dungeon_tilemap
 	tilemap.add_layer(0)
 	var floor_points = $map_gen.generate_map(
-		randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
+		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
 		map_gen_branch_len_range,
-		map_dimensions
+		map_dimensions,
+		self.rng
 	)
 
 	for point in floor_points:
@@ -33,10 +40,9 @@ func _ready():
 
 	var possible_individual_locations = floor_points.duplicate()
 	var player = individual_scene.instantiate()
-	var player_location = Vector2(possible_individual_locations.pick_random())
+	player.rng = self.rng
+	var player_location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
 
-	print('Put player at ', player.position)
-	possible_individual_locations.erase(player_location)
 	add_child(player)
 	# The Individuals must be in the tree before change_position can be called
 	# because get_node on absolute paths (which they need to get sprite_presenter)
@@ -44,7 +50,6 @@ func _ready():
 	# position is the origin of the node. Since the node centers its children
 	# around the origin, we have to put the position in the center of the tile.
 	player.change_position((player_location + half_unit_vec) * tile_size)
-	#player.sync_presentation()
 
 	var throng = throng_scene.instantiate()
 	throng.throng_id = 'throng_player'
@@ -57,16 +62,14 @@ func _ready():
 
 	for i in 5:
 		var indiv_scene = individual_scene
-		if randi_range(0, 3) > 0:
+		if rng.randi_range(0, 3) > 0:
 			indiv_scene = alligator_scene		
 		var individual = indiv_scene.instantiate()
+		individual.rng = self.rng
 		individual.name = '%s_%d' % [individual.get_class(), i]
-		#alligator.unique_name_in_owner = true
 		add_child(individual)
-		var location = Vector2(possible_individual_locations.pick_random())
+		var location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
 		individual.change_position((location + half_unit_vec) * tile_size)
-		possible_individual_locations.erase(location)		
-		#alligator.sync_presentation()
 	
 	throng.add(player)
 	self.sprite_presenter.sync_presentation()

@@ -3,10 +3,13 @@ extends Node2D
 
 @export var color_set: PackedColorArray
 @export var initiative: int = 10
+# WARNING: This needs to be set after instantiation and before adding to the scene.
+var rng: RandomNumberGenerator
+
 @onready var tilemap: TileMap = $/root/throng_root_node/dungeon_tilemap
 @onready var sprite_root: Node2D = $sprite_root
 @onready var sprite_presenter: SpritePresenter = $/root/throng_root_node/sprite_presenter
-
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Keep the reference to the sprite but remove it as a child so that when
@@ -16,7 +19,7 @@ func _ready():
 	self.sprite_presenter.add_child(self.sprite_root)
 	self.add_to_group('individuals')
 	
-	self.sprite_root.get_child(0).modulate = color_set[randi_range(0, color_set.size()-1)]
+	self.sprite_root.get_child(0).modulate = color_set[rng.randi_range(0, color_set.size()-1)]
 
 func animation_op(animation_player, animation_name):
 	animation_player.play(animation_name)
@@ -25,7 +28,7 @@ func animation_op(animation_player, animation_name):
 func sprite_move_op(node, new_position):
 	node.position = new_position
 
-func take_turn(event):
+func take_turn(_event):
 	pass
 	
 # Returns true if we were actually able to move.

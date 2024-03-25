@@ -4,13 +4,14 @@ var cardinal_directions = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN
 
 func take_turn(event):
 	super.take_turn(event)
-	if (randi_range(0, 3) > 2):
+	if (self.rng.randi_range(0, 3) > 2):
 		return
 
 	var tile_size = $/root/throng_root_node.tile_size
-	self.move(self.cardinal_directions.pick_random() * tile_size)
+	self.move(BasicUtils.pick_random(self.cardinal_directions, self.rng) * tile_size)
 
 func act_on_other(other: Individual):
+	# NEXT: Look into why alligator is sometimes on top of another individual.
 	var turn_over = bite(other)
 	if !turn_over:
 		super.act_on_other(other)
