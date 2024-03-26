@@ -1,6 +1,7 @@
 class_name Individual
 extends Node2D
 
+@export var visible_name: String
 @export var color_set: PackedColorArray
 @export var initiative: int = 10
 # WARNING: This needs to be set after instantiation and before adding to the scene.
