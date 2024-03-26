@@ -2,7 +2,9 @@ class_name TurnDistributor
 extends Node
 
 func _unhandled_key_input(event):
-	if not event.is_action_type():
+	# Don't handle press events. Throngs don't expect them, and when you do
+	# handle them, throngs ignore them, but free individuals get an extra turn.
+	if not event.is_action_type() or not event.is_released():
 		return
 
 	print('input received')
