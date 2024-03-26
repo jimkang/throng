@@ -1,7 +1,7 @@
 class_name Individual
 extends Node2D
 
-@export var visible_name: String
+@export var readable_name: String
 @export var color_set: PackedColorArray
 @export var initiative: int = 10
 # WARNING: This needs to be set after instantiation and before adding to the scene.
@@ -42,7 +42,7 @@ func move(move_vector: Vector2):
 		if dest_cell_data.get_custom_data('is_floor'):
 			var colliding_thing = Collision.find_colliding_things_at(
 				get_world_2d().direct_space_state, next_pos)
-			print('Mover ', self.visible_name, ' is collding with: ', colliding_thing.visible_name if colliding_thing else 'nothing')
+			print('Mover ', self.readable_name, ' is collding with: ', colliding_thing.readable_name if colliding_thing else 'nothing')
 			if colliding_thing:
 				if colliding_thing.get_meta('individual'):
 					act_on_other(colliding_thing)

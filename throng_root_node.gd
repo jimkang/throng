@@ -41,7 +41,7 @@ func _ready():
 
 	var possible_individual_locations = floor_points.duplicate()
 	var player = individual_scene.instantiate()
-	player.visible_name = 'player'
+	player.readable_name = 'player'
 	player.rng = self.rng
 	var player_location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
 
@@ -68,7 +68,7 @@ func _ready():
 			indiv_scene = alligator_scene		
 		var individual = indiv_scene.instantiate()
 		individual.rng = self.rng
-		individual.visible_name = '%s_%d' % [individual.name, i]
+		individual.readable_name = '%s_%d' % [individual.name, i]
 		add_child(individual)
 		var location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
 		individual.change_position((location + half_unit_vec) * tile_size)
