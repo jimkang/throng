@@ -12,13 +12,13 @@ func _ready():
 func take_turn(event):
 	var x = 0
 	var y = 0
-	if event.is_action_released("ui_left"):
+	if event.is_action_released('ui_left'):
 		x -= 1
-	if event.is_action_released("ui_right"):
+	if event.is_action_released('ui_right'):
 		x += 1
-	if event.is_action_released("ui_up"):
+	if event.is_action_released('ui_up'):
 		y -= 1
-	if event.is_action_released("ui_down"):
+	if event.is_action_released('ui_down'):
 		y += 1
 
 	if x != 0 or y != 0:
@@ -41,16 +41,16 @@ func move_throng(x: int, y: int):
 	print('move_throng working on', individuals)
 	
 	var moved_individuals = []
-	var last_individual_did_move = false
 	for individual in individuals:
-		if last_individual_did_move:
-			# We need to wait for the move to take effect so that the next
-			# collision calculations take it into account.
-			await get_tree().physics_frame
+		# We need to wait for the move to take effect so that the next
+		# collision calculations take it into account.
+		# We need to wait even before moving the first individual in case there
+		# was a physics change previous to this function call. We need that to
+		# be taken into account.
+		await get_tree().physics_frame
 		assert(individual is Individual)
 		print('Throng moving: ', individual.name)
-		last_individual_did_move = individual.move(move)
-		if last_individual_did_move:
+		if individual.move(move):
 			moved_individuals.append(individual)
 
 		# Can't use the existing individuals var here because some of them may have died.
