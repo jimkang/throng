@@ -66,3 +66,7 @@ func add(individual: Node):
 		return
 	individual.add_to_group(self.throng_id)
 	individual.remove_from_group('individuals')
+	individual.sprite_root.draw_throng_indicator = true
+	individual.sprite_root.throng_color = Color.YELLOW
+	individual.sprite_root.queue_redraw()
+	
