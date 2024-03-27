@@ -49,7 +49,7 @@ func move_throng(x: int, y: int):
 		# be taken into account.
 		await get_tree().physics_frame
 		assert(individual is Individual)
-		print('Throng moving: ', individual.name)
+		print('Throng moving: ', individual.readable_name)
 		if individual.move(move):
 			moved_individuals.append(individual)
 

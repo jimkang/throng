@@ -20,8 +20,8 @@ var rng: RandomNumberGenerator
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#var seed_val = randi()
-	#var seed_val = 1414371858 # Generates an alligator on top of a blob
-	var seed_val = 3637569141 # Immediate two individuals overlapping  
+	var seed_val = 2262306517 # Generates an alligator on top of a blob
+	#var seed_val = 3637569141 # Immediate two individuals overlapping  
 	print('seed: ', seed_val)
 	self.rng = RandomNumberGenerator.new()
 	self.rng.seed = seed_val
@@ -56,10 +56,6 @@ func _ready():
 	var throng = throng_scene.instantiate()
 	throng.throng_id = 'throng_player'
 	add_child(throng)
-	if throng is Throng:
-		print('is class')
-	else:
-		print('is NOT class')
 	throng.position = player.position
 
 	for i in 5:
