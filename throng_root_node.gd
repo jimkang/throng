@@ -18,7 +18,7 @@ var rng: RandomNumberGenerator
 
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready():	
 	#var seed_val = randi()
 	var seed_val = 2262306517 # Generates an alligator on top of a blob
 	#var seed_val = 3637569141 # Immediate two individuals overlapping  
