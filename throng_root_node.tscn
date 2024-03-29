@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://don6vvn244jmf"]
+[gd_scene load_steps=10 format=3 uid="uid://don6vvn244jmf"]
 
 [ext_resource type="Script" path="res://hierarchy.gd" id="1_ax7n6"]
 [ext_resource type="Script" path="res://throng_root_node.gd" id="1_q6lao"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://sprite_presenter.gd" id="6_efj58"]
 [ext_resource type="Script" path="res://geometry_lib.gd" id="7_o33ad"]
 [ext_resource type="Script" path="res://turn_distributor.gd" id="8_u2t4c"]
-[ext_resource type="Script" path="res://basic_utils_lib.gd" id="9_ocoy2"]
 [ext_resource type="Script" path="res://tests.gd" id="10_xjbur"]
 
 [node name="throng_root_node" type="Node2D"]
@@ -42,9 +41,5 @@ script = ExtResource("7_o33ad")
 [node name="turn_distributor" type="Node" parent="."]
 script = ExtResource("8_u2t4c")
 
-[node name="basic_utils_lib" type="Node" parent="."]
-script = ExtResource("9_ocoy2")
-
 [node name="tests" type="Node" parent="."]
 script = ExtResource("10_xjbur")
-tests_on = true

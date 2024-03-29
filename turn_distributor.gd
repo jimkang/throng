@@ -18,7 +18,8 @@ func _unhandled_key_input(event):
 		await throng.take_turn(event)
 	var free_indivs = get_tree().get_nodes_in_group('individuals')
 	free_indivs.sort_custom(Hierarchy.compare_init)	
-	print('Giving turns to free individuals: ', free_indivs)
+	print('Giving turns to free individuals: ', free_indivs.map(func(indiv): return indiv.readable_name))
+
 	for individual in free_indivs:
 		# We can't assume an individual will be there because an
 		# individual taking a &turn means another individual may die and be gone.

@@ -4,7 +4,8 @@ extends Node
 @export var tests_on: bool
 
 func _ready():
-	test_map_gen()
+	if tests_on:
+		test_map_gen()
 
 func test_map_gen():
 	var seed_val = randi()

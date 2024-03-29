@@ -43,7 +43,8 @@ func move(move_vector: Vector2):
 			var colliding_thing = Collision.find_colliding_things_at(
 				get_world_2d().direct_space_state, next_pos)
 			print('Mover ', self.readable_name, ' is collding with: ',
-			colliding_thing.readable_name if colliding_thing else 'nothing')
+			colliding_thing.readable_name if colliding_thing else 'nothing',
+			' at ', next_pos)
 
 			if colliding_thing:
 				if colliding_thing.get_meta('individual'):
@@ -56,11 +57,18 @@ func move(move_vector: Vector2):
 
 func change_position(pos: Vector2):
 	self.position = pos
+	print('Queuing sprite move of ', self.readable_name, ' to ', self.position)
 	self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
 			self.sprite_move_op, [self.sprite_root, self.position]
 	))
 
 func die():
+	print('Queuing sprite death of ', self.readable_name)
+	# Stall for a second so you can see the last thing it did before it
+	# disappears.
+	#self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
+		#self.stall, [1.0]
+	#))
 	self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
 		self.sprite_root.queue_free, []
 	))
@@ -93,3 +101,8 @@ func get_throng_id():
 	if groups.size() > 0:
 		assert(groups.size() == 1)
 		return groups[0]
+
+func stall(seconds: float):
+	print("Stall start")
+	await self.get_tree().create_timer(seconds).timeout
+	print('Stall end')
