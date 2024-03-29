@@ -21,12 +21,14 @@ func _unhandled_key_input(event):
 	print('Giving turns to free individuals: ', free_indivs.map(func(indiv): return indiv.readable_name))
 
 	for individual in free_indivs:
+		# Sync the physics in case something moved so that the next individual
+		# has an accurate physics situation to work with.
+		await get_tree().physics_frame
+
 		# We can't assume an individual will be there because an
 		# individual taking a &turn means another individual may die and be gone.
 		if individual == null:
 			continue
-		# Sync the physics in case something moved so that the next individual
-		# has an accurate physics situation to work with.
-		await get_tree().physics_frame
+					
 		await individual.take_turn(event)
 	await $'../sprite_presenter'.sync_presentation()	
