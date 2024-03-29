@@ -64,6 +64,8 @@ func die():
 	self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
 		self.sprite_root.queue_free, []
 	))
+	# Detach sprite root so that it is not freed when this object is freed.
+	self.sprite_root = null
 	self.queue_free()
 
 func cell_data_at_pos(pos: Vector2) -> TileData:
