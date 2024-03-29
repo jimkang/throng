@@ -11,18 +11,18 @@ static func pick_random(array: Array, rng: RandomNumberGenerator):
 		return array[index]
 
 class UniqueArray extends Object:
-	var hash = {}
+	var dict = {}
 	var array = []
 	func append(item: Variant):
-		if item in hash:
+		if item in dict:
 			return
 		array.append(item)
-		hash[item] = true
+		dict[item] = true
 	func prepend(item: Variant):
-		if item in hash:
+		if item in dict:
 			return
 		array.push_front(item)
-		hash[item] = true
+		dict[item] = true
 	func size():
 		return array.size()
 	func back():
@@ -38,7 +38,7 @@ class UniqueArray extends Object:
 		return array
 	func copy():
 		var copy_array = UniqueArray.new()
-		copy_array.hash = self.hash.duplicate(true)
+		copy_array.dict = self.dict.duplicate(true)
 		copy_array.array = self.array.duplicate(true)
 		return copy_array
 	

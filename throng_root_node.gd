@@ -30,7 +30,7 @@ func _ready():
 
 	var tilemap = $dungeon_tilemap
 	tilemap.add_layer(0)
-	var floor_points = $map_gen.generate_map(
+	var floor_points = MapGen.generate_map(
 		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
 		map_gen_branch_len_range,
 		map_dimensions,

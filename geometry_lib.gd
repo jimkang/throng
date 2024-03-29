@@ -1,5 +1,5 @@
 class_name Geometry
-extends Node
+extends Object
 
 static func find_box_center(points: Array) -> Vector2i:
 	var box = find_box(points)

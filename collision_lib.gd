@@ -1,5 +1,5 @@
 class_name Collision
-extends Node
+extends Object
 
 static func find_colliding_things_at(space_state: PhysicsDirectSpaceState2D, position: Vector2):
 	var query := PhysicsPointQueryParameters2D.new()

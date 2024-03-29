@@ -1,6 +1,5 @@
-extends Node
-
-class_name Map_Gen
+class_name MapGen
+extends Object
 
 static func generate_map(number_of_iterations: int, 
 	map_gen_branch_len_range: Array, map_dimensions: Vector2i,
@@ -38,7 +37,7 @@ map_dimensions: Vector2i, rng: RandomNumberGenerator) -> BasicUtils.UniqueArray:
 	var dist: float = rng.randf_range(map_gen_branch_len_range[0], map_gen_branch_len_range[1])
 	var move_by = Vector2.from_angle(angle) * dist;	
 	var dest_pt: Vector2i = Vector2i(Vector2(root_pt) + move_by).clamp(Vector2i.ZERO, map_dimensions);
-	var connectors: BasicUtils.UniqueArray = connect_points(root_pt, dest_pt, Map_Gen.connect_points_linear)# connect_points_stepwise)
+	var connectors: BasicUtils.UniqueArray = connect_points(root_pt, dest_pt, MapGen.connect_points_linear)# connect_points_stepwise)
 	var branch_pts = connectors.copy()
 	branch_pts.prepend(root_pt)
 	branch_pts.append(dest_pt)
@@ -88,7 +87,6 @@ static func get_diagonal_fills(line_pts: Array) -> BasicUtils.UniqueArray:
 		if delta_x != 0:
 			var slope = (pt.y - prev_pt.y)/delta_x
 			if slope != 0:
-				var steps = get_steps_needed_between_pts(prev_pt, pt)
 				diagonal_fills.append_unique_array(connect_points_stepwise(prev_pt, pt))
 	return diagonal_fills
 	
