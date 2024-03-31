@@ -31,7 +31,7 @@ func move(move_vector: Vector2):
 	var dest_cell_data := cell_data_at_pos(next_pos)
 	var result = false
 	if dest_cell_data:
-		# If the dest on a floor, then we can do something, maybe.
+		# If the dest is on a floor, then we can do something, maybe.
 		if dest_cell_data.get_custom_data('is_floor'):
 			var colliding_thing = Collision.find_colliding_things_at(
 				get_world_2d().direct_space_state, next_pos)
@@ -50,6 +50,7 @@ func move(move_vector: Vector2):
 
 func change_position(pos: Vector2):
 	self.position = pos
+	# NEXT: Facing sprites
 	print('Queuing sprite move of ', self.readable_name, ' to ', self.position)
 	self.sprite_presenter.queue_presentable(Presentable.new(
 		self.readable_name + ' move', Presentable.sprite_move_op,
@@ -60,13 +61,10 @@ func die():
 	print('Queuing sprite death of ', self.readable_name)
 	# Stall for a second so you can see the last thing it did before it
 	# disappears.
-	#self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
-		#self.stall, [1.0]
+	#self.sprite_presenter.queue_presentable(Presentable.new(
+		#self.readable_name + ' pre-death pause',
+		#$'/root/throng_root_node'.stall_op, [0.5], true
 	#))
-	self.sprite_presenter.queue_presentable(Presentable.new(
-		self.readable_name + ' pre-death pause',
-		$'/root/throng_root_node'.stall_op, [0.5], true
-	))
 	
 	self.sprite_presenter.queue_presentable(Presentable.new(
 		self.readable_name + ' death', Presentable.free_op, [self.sprite_root], false
@@ -80,7 +78,7 @@ func cell_data_at_pos(pos: Vector2) -> TileData:
 	return tilemap.get_cell_tile_data(0, next_cell_pos)
 
 func act_on_other(other: Individual):
-	# TODO: Individual's primary action, if any.
+	# Subclasses should implement individual's primary action, if any.
 	recruit(other)
 
 func recruit(recruitee: Individual):

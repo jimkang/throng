@@ -14,9 +14,7 @@ func _init(the_name: String, the_op: Callable, the_arguments: Array, _is_async: 
 	self.is_async = _is_async
 
 static func animation_op(done_signal, animation_player, animation_name):
-	#pass
 	animation_player.play(animation_name)
-	#animation_player.advance(0)
 	await animation_player.animation_finished
 	done_signal.emit()
 	

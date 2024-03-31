@@ -11,7 +11,6 @@ func take_turn(event):
 	self.move(BasicUtils.pick_random(self.cardinal_directions, self.rng) * tile_size)
 
 func act_on_other(other: Individual):
-	# NEXT: Look into why alligator is sometimes on top of another individual.
 	var turn_over = bite(other)
 	if !turn_over:
 		super.act_on_other(other)

@@ -19,8 +19,8 @@ var rng: RandomNumberGenerator
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
 func _ready():	
-	#var seed_val = randi()
-	var seed_val = 4153177625 # Guy appears to get eaten before he moves into range.
+	var seed_val = randi()
+	#var seed_val = 4153177625 # Guy appears to get eaten before he moves into range.
 	#var seed_val = 4051854102 # Trying to make an individual move that's already freed.
 	#var seed_val = 2262306517 # Generates an alligator on top of a blob
 	#var seed_val = 3637569141 # Immediate two individuals overlapping
@@ -28,8 +28,6 @@ func _ready():
 	print('seed: ', seed_val)
 	self.rng = RandomNumberGenerator.new()
 	self.rng.seed = seed_val
-	#add_user_signal('individual_move_done', [{'name': 'result', 'type': TYPE_BOOL }])
-	#add_user_signal('presentation_op_done', [{'name': 'op_name', 'type': TYPE_STRING }])
 
 	var tilemap = $dungeon_tilemap
 	tilemap.add_layer(0)
