@@ -17,8 +17,10 @@ func act_on_other(other: Individual):
 		super.act_on_other(other)
 
 func bite(bitee: Individual):
-	self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
-		self.animation_op, [self.sprite_root.get_node('AnimationPlayer'), 'chomp']
+	self.sprite_presenter.queue_presentable(Presentable.new(
+		self.readable_name + ' biting ' + bitee.readable_name,
+		Presentable.animation_op,
+		[self.sprite_root.get_node('AnimationPlayer'), 'chomp'], true
 	))
 	bitee.die()
 	return true

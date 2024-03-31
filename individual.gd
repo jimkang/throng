@@ -22,13 +22,6 @@ func _ready():
 	
 	self.sprite_root.get_child(0).modulate = color_set[rng.randi_range(0, color_set.size()-1)]
 
-func animation_op(animation_player, animation_name):
-	animation_player.play(animation_name)
-	await animation_player.animation_finished
-
-func sprite_move_op(node, new_position):
-	node.position = new_position
-
 func take_turn(_event):
 	pass
 	
@@ -58,8 +51,9 @@ func move(move_vector: Vector2):
 func change_position(pos: Vector2):
 	self.position = pos
 	print('Queuing sprite move of ', self.readable_name, ' to ', self.position)
-	self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
-			self.sprite_move_op, [self.sprite_root, self.position]
+	self.sprite_presenter.queue_presentable(Presentable.new(
+		self.readable_name + ' move', Presentable.sprite_move_op,
+		[self.sprite_root, self.position], false
 	))
 
 func die():
@@ -69,8 +63,13 @@ func die():
 	#self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
 		#self.stall, [1.0]
 	#))
-	self.sprite_presenter.queue_presentable(SpritePresenter.Presentable.new(
-		self.sprite_root.queue_free, []
+	self.sprite_presenter.queue_presentable(Presentable.new(
+		self.readable_name + ' pre-death pause',
+		$'/root/throng_root_node'.stall_op, [0.5], true
+	))
+	
+	self.sprite_presenter.queue_presentable(Presentable.new(
+		self.readable_name + ' death', Presentable.free_op, [self.sprite_root], false
 	))
 	# Detach sprite root so that it is not freed when this object is freed.
 	self.sprite_root = null
@@ -102,7 +101,3 @@ func get_throng_id():
 		assert(groups.size() == 1)
 		return groups[0]
 
-func stall(seconds: float):
-	print("Stall start")
-	await self.get_tree().create_timer(seconds).timeout
-	print('Stall end')

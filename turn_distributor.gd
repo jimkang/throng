@@ -12,9 +12,8 @@ func _unhandled_key_input(event):
 	throngs.sort_custom(Hierarchy.compare_init)
 	print('Giving turns to throngs: ', throngs)
 	for throng in throngs:
-		# Sync the physics in case something moved so that the next throng
-		# has an accurate physics situation to work with.
-		await get_tree().physics_frame
+		# Each throng is responsible for syncing physics state after moving
+		# an individual.
 		await throng.take_turn(event)
 	var free_indivs = get_tree().get_nodes_in_group('individuals')
 	free_indivs.sort_custom(Hierarchy.compare_init)	
@@ -31,4 +30,5 @@ func _unhandled_key_input(event):
 			continue
 					
 		await individual.take_turn(event)
-	await $'../sprite_presenter'.sync_presentation()	
+	await $'../sprite_presenter'.sync_presentation()
+	await get_tree().process_frame
