@@ -10,7 +10,9 @@ var rng: RandomNumberGenerator
 @onready var tilemap: TileMap = $/root/throng_root_node/dungeon_tilemap
 @onready var sprite_root: Node2D = $sprite_root
 @onready var sprite_presenter: SpritePresenter = $/root/throng_root_node/sprite_presenter
-	
+
+var facing: Vector2i = Vector2i.DOWN
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Keep the reference to the sprite but remove it as a child so that when
@@ -20,7 +22,10 @@ func _ready():
 	self.sprite_presenter.add_child(self.sprite_root)
 	self.add_to_group('individuals')
 	
-	self.sprite_root.get_child(0).modulate = color_set[rng.randi_range(0, color_set.size()-1)]
+	var color = color_set[rng.randi_range(0, color_set.size()-1)]
+	var sprites = self.sprite_root.find_children('*', 'Sprite2D', false, false)
+	for sprite in sprites:
+		sprite.modulate = color
 
 func take_turn(_event):
 	pass
@@ -43,18 +48,20 @@ func move(move_vector: Vector2):
 				if colliding_thing.get_meta('individual'):
 					act_on_other(colliding_thing)
 			else:
-				# If nothing's on the floor there, we can go there. 
-				self.change_position(self.position + move_vector)
+				# If nothing's on the floor there, we can go there.
+				self.change_position(self.position + move_vector,
+				move_vector.normalized())
 				result = true
 	return result
 
-func change_position(pos: Vector2):
+func change_position(pos: Vector2, _facing: Vector2i):
 	self.position = pos
+	self.facing = _facing
 	# NEXT: Facing sprites
 	print('Queuing sprite move of ', self.readable_name, ' to ', self.position)
 	self.sprite_presenter.queue_presentable(Presentable.new(
 		self.readable_name + ' move', Presentable.sprite_move_op,
-		[self.sprite_root, self.position], false
+		[self.sprite_root, self.position, self.facing], false
 	))
 
 func die():
