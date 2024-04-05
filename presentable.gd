@@ -14,6 +14,10 @@ func _init(the_name: String, the_op: Callable, the_arguments: Array, _is_async: 
 	self.is_async = _is_async
 
 static func animation_op(done_signal, animation_player, animation_name):
+	# Temporary until there's an animation for each facing sprite.
+	var sprite = animation_player.get_parent().find_child('sprite_default', false, false)
+	sprite.visible = true
+	
 	animation_player.play(animation_name)
 	await animation_player.animation_finished
 	done_signal.emit()
