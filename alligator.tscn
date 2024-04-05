@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://v7pwf8m5fgod"]
+[gd_scene load_steps=10 format=3 uid="uid://v7pwf8m5fgod"]
 
 [ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="1_frxgq"]
 [ext_resource type="Script" path="res://alligator.gd" id="2_4ny0q"]
+[ext_resource type="Texture2D" uid="uid://djpae3wtrso2y" path="res://art/alligator_chomp_sheet.png" id="3_2cfss"]
+[ext_resource type="Texture2D" uid="uid://cgtiuabtk2t8p" path="res://art/alligator_chomp_open.png" id="3_lm72g"]
+[ext_resource type="Texture2D" uid="uid://7gowta2nj8pw" path="res://art/alligator_facing_left.png" id="4_r0fam"]
+[ext_resource type="Texture2D" uid="uid://crw3y1n1rggir" path="res://art/alligator_default.png" id="5_l6hji"]
 
 [sub_resource type="Animation" id="Animation_edlgf"]
 length = 0.001
@@ -46,9 +50,21 @@ script = ExtResource("2_4ny0q")
 color_set = PackedColorArray(0.631373, 0.0862745, 0.490196, 1, 0.32549, 0.2, 0.0509804, 1)
 
 [node name="sprite_default" parent="sprite_root" index="0"]
-region_rect = Rect2(493, 136, 16, 16)
+texture = ExtResource("3_2cfss")
+hframes = 4
+frame = 1
+region_rect = Rect2(1, 1, 67, 16)
 
-[node name="AnimationPlayer" parent="sprite_root" index="2"]
+[node name="sprite_facing_up" parent="sprite_root" index="1"]
+texture = ExtResource("3_lm72g")
+
+[node name="sprite_facing_left" parent="sprite_root" index="2"]
+texture = ExtResource("4_r0fam")
+
+[node name="sprite_facing_right" parent="sprite_root" index="3"]
+texture = ExtResource("5_l6hji")
+
+[node name="AnimationPlayer" parent="sprite_root" index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_ihvww")
 }

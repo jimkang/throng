@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0ml1ekw8bqkw"]
+[gd_scene load_steps=8 format=3 uid="uid://b0ml1ekw8bqkw"]
 
 [ext_resource type="Texture2D" uid="uid://725a3skhyu2e" path="res://art/monochrome-transparent.png" id="1_a8jrl"]
 [ext_resource type="Script" path="res://individual.gd" id="1_wiaqu"]
 [ext_resource type="Script" path="res://individual_sprite_root.gd" id="2_x3ccl"]
 [ext_resource type="Texture2D" uid="uid://doy8to1riesl" path="res://art/blob-face-up.png" id="4_xywau"]
-[ext_resource type="Texture2D" uid="uid://7gowta2nj8pw" path="res://art/alligator_facing_left.png" id="5_jmemb"]
+[ext_resource type="Texture2D" uid="uid://cgdwhaey4sx2j" path="res://art/blob_facing_left.png" id="5_wov1r"]
+[ext_resource type="Texture2D" uid="uid://lrjt2tja3ola" path="res://art/blob_facing_right.png" id="6_o73dr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_twcyw"]
 size = Vector2(64, 64)
@@ -42,7 +43,14 @@ region_rect = Rect2(459, 136, 16, 16)
 process_mode = 1
 texture_filter = 1
 scale = Vector2(4, 4)
-texture = ExtResource("5_jmemb")
+texture = ExtResource("5_wov1r")
+region_rect = Rect2(459, 136, 16, 16)
+
+[node name="sprite_facing_right" type="Sprite2D" parent="sprite_root"]
+process_mode = 1
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("6_o73dr")
 region_rect = Rect2(459, 136, 16, 16)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="sprite_root"]
