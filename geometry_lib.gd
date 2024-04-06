@@ -20,5 +20,15 @@ static func find_box(points: Array) -> Rect2i:
 		if bottommost == null || point.y > bottommost:
 			bottommost = point.y
 	return Rect2i(leftmost, topmost, rightmost - leftmost, bottommost - topmost)
-	
+
+static func name_for_direction(dir: Vector2i):
+	match dir:
+		Vector2i.LEFT:
+			return 'left'
+		Vector2i.RIGHT:
+			return 'right'
+		Vector2i.UP:
+			return 'up'
+		Vector2i.DOWN:
+			return 'down'
 	

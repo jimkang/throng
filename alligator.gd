@@ -16,13 +16,23 @@ func act_on_other(other: Individual):
 		super.act_on_other(other)
 
 func bite(bitee: Individual):
-	self.sprite_presenter.queue_presentable(Presentable.new(
-		self.readable_name + ' biting ' + bitee.readable_name,
-		Presentable.animation_op,
-		[self.sprite_root.get_node('AnimationPlayer'), 'chomp'], true
-	))
+	var facing_name = Geometry.name_for_direction(self.facing)
+	var op_name = self.readable_name + ' biting ' + bitee.readable_name
+	
+	var player = self.sprite_root.get_node('AnimationPlayer')
+	var animation_name = Hierarchy.find_animation_name(player, 'chomp',
+	facing_name)
+	assert(animation_name, 'An animation for chomp exists.')
+	
+	if animation_name:
+		self.sprite_presenter.queue_presentable(Presentable.new(
+			op_name,
+			Presentable.animation_op,
+			[player, animation_name], true
+		))
+
 	bitee.die()
 	return true
-
+		
 func _to_string():
 	return 'Alligator_' + self.name

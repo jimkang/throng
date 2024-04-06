@@ -24,7 +24,7 @@ static func animation_op(done_signal, animation_player, animation_name):
 	
 static func sprite_move_op(_done_signal, sprite_root: Node2D, new_position, facing: Vector2i):
 	print('move_op with sprite: ', sprite_root.name)
-	var facing_sprite_name = 'sprite_facing_%s' % get_direction_name(facing)
+	var facing_sprite_name = 'sprite_facing_%s' % Geometry.name_for_direction(facing)
 	print('facing_sprite:', facing_sprite_name)
 	# sprite_root isn't going to be owned, so the fourth param here is important.
 	var sprites = sprite_root.find_children('*', 'Sprite2D', false, false)
@@ -45,14 +45,4 @@ static func sprite_move_op(_done_signal, sprite_root: Node2D, new_position, faci
 
 static func free_op(_done_signal, node):
 	node.queue_free()
-	
-static func get_direction_name(dir: Vector2i):
-	match(dir):
-		Vector2i.UP:
-			return 'up'
-		Vector2i.DOWN:
-			return 'down'
-		Vector2i.LEFT:
-			return 'left'
-		Vector2i.RIGHT:
-			return 'right'
+

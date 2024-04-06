@@ -31,3 +31,16 @@ static func compare_bottomwise(a: Node, b: Node) -> bool:
 	assert(b is Node2D)
 	print(a.position, ' and ', b.position, ' result', a.position.y > b.position.y)
 	return a.position.y > b.position.y
+
+# If an animation with either {base_name}_{modifier} or {base_name} exists in 
+# the given mixer, this will return its name. It will return null if it can't
+# find it.
+static func find_animation_name(mixer: AnimationMixer, base_name: String,
+modifier: String):
+	var animation_name = null
+	var modifier_animation_name = base_name + '_' + modifier
+	if mixer.get_animation(modifier_animation_name):
+		animation_name = modifier_animation_name
+	elif mixer.get_animation(base_name):
+		animation_name = base_name
+	return animation_name
