@@ -44,3 +44,26 @@ modifier: String):
 	elif mixer.get_animation(base_name):
 		animation_name = base_name
 	return animation_name
+
+# If a child with either {base_name}_{modifier} or {base_name} exists in 
+# the given parent, this will return its name. It will return null if it can't
+# find it.
+static func find_child_with_fallback(parent: Node, base_name: String,
+modifier: String) -> Node:
+	var modifier_node_name = base_name + '_' + modifier
+	var child = parent.find_child(modifier_node_name, false, false)
+	if not child:
+		child = parent.find_child(base_name, false, false)
+	return child
+
+# Returns the target sprite object.
+static func make_only_visible_sibling(parent: Node, target_sprite_name: String) -> Sprite2D:
+	var sprites = parent.find_children('*', 'Sprite2D', false, false)
+	var target_sprite
+	for sprite in sprites:
+		if sprite.name == target_sprite_name:
+			target_sprite = sprite
+			sprite.visible = true
+		else:
+			sprite.visible = false
+	return target_sprite
