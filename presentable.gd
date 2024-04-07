@@ -21,13 +21,29 @@ static func animation_op(done_signal, animation_player, animation_name):
 	animation_player.play(animation_name)
 	await animation_player.animation_finished
 	done_signal.emit()
+
+static func sprite_animation_op(done_signal, sprite_root: IndividualSpriteRoot,
+animated_sprite: AnimatedSprite2D):
+	animated_sprite.visible = true
+	# Hide non-animated sprites.
+	var active_sprite = sprite_root.sprite_facing if sprite_root.sprite_facing else sprite_root.sprite_default
+	var animation_root = animated_sprite.get_parent()
+	active_sprite.visible = false
+	animated_sprite.visible = true
+	animation_root.visible = true
+	animated_sprite.play()
 	
+	await animated_sprite.animation_finished
+	
+	animated_sprite.visible = false
+	animation_root.visible = false
+	active_sprite.visible = true
+	done_signal.emit()
+
 static func sprite_move_op(_done_signal, sprite_root: Node2D, new_position, facing: Vector2i):
 	print('move_op with sprite: ', sprite_root.name)
 	var facing_sprite_name = 'sprite_facing_%s' % Geometry.name_for_direction(facing)
 	print('facing_sprite:', facing_sprite_name)
-	# sprite_root isn't going to be owned, so the fourth param here is important.
-	var sprites = sprite_root.find_children('*', 'Sprite2D', false, false)
 	var facing_sprite_is_visible = false
 	var facing_sprite = Hierarchy.make_only_visible_sibling(sprite_root,
 	facing_sprite_name)

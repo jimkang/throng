@@ -23,9 +23,10 @@ func _ready():
 	self.add_to_group('individuals')
 	
 	var color = color_set[rng.randi_range(0, color_set.size()-1)]
-	var sprites = self.sprite_root.find_children('*', 'Sprite2D', false, false)
-	for sprite in sprites:
-		sprite.modulate = color
+	var canvas_items = self.sprite_root.find_children('*', 'CanvasItem', true, false)
+	for canvas_item in canvas_items:
+		if not canvas_item.name == 'animation_root':
+			canvas_item.modulate = color
 
 func take_turn(_event):
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://v7pwf8m5fgod"]
+[gd_scene load_steps=16 format=3 uid="uid://v7pwf8m5fgod"]
 
 [ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="1_frxgq"]
 [ext_resource type="Script" path="res://alligator.gd" id="2_4ny0q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://beyy37gcncpfx" path="res://art/alligator_facing_up.png" id="4_ix0vt"]
 [ext_resource type="Texture2D" uid="uid://7gowta2nj8pw" path="res://art/alligator_facing_left.png" id="4_r0fam"]
 [ext_resource type="Texture2D" uid="uid://crw3y1n1rggir" path="res://art/alligator_default.png" id="5_l6hji"]
+[ext_resource type="Texture2D" uid="uid://dotd5o4n8sbkr" path="res://art/alligator_chomp_right_sheet.png" id="7_0kc48"]
 
 [sub_resource type="Animation" id="Animation_edlgf"]
 length = 0.001
@@ -39,29 +40,47 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_i1m5r"]
-resource_name = "chomp_left"
-length = 0.5
-step = 0.125
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite_default:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.125, 0.25, 0.375),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ihvww"]
 _data = {
 "RESET": SubResource("Animation_edlgf"),
-"chomp": SubResource("Animation_4ypfl"),
-"chomp_left": SubResource("Animation_i1m5r")
+"chomp": SubResource("Animation_4ypfl")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_he4ml"]
+atlas = ExtResource("7_0kc48")
+region = Rect2(0, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6by6k"]
+atlas = ExtResource("7_0kc48")
+region = Rect2(17, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dkv1"]
+atlas = ExtResource("7_0kc48")
+region = Rect2(34, 0, 17, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a81ty"]
+atlas = ExtResource("7_0kc48")
+region = Rect2(51, 0, 17, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ffbjb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_he4ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6by6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dkv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a81ty")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}]
 
 [node name="Alligator" instance=ExtResource("1_frxgq")]
 script = ExtResource("2_4ny0q")
@@ -86,3 +105,22 @@ texture = ExtResource("5_l6hji")
 libraries = {
 "": SubResource("AnimationLibrary_ihvww")
 }
+
+[node name="animation_root" parent="sprite_root" index="5"]
+visible = false
+
+[node name="animation_chomp" type="AnimatedSprite2D" parent="sprite_root/animation_root" index="0"]
+visible = false
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_ffbjb")
+frame = 3
+frame_progress = 1.0
+
+[node name="animation_chomp_right" type="AnimatedSprite2D" parent="sprite_root/animation_root" index="1"]
+visible = false
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_ffbjb")
+frame = 3
+frame_progress = 1.0

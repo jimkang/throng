@@ -19,17 +19,15 @@ func bite(bitee: Individual):
 	var facing_name = Geometry.name_for_direction(self.facing)
 	var op_name = self.readable_name + ' biting ' + bitee.readable_name
 	
-	var player = self.sprite_root.get_node('AnimationPlayer')
-	var animation_name = Hierarchy.find_animation_name(player, 'chomp',
-	facing_name)
-	assert(animation_name, 'An animation for chomp exists.')
+	var anim_root = self.sprite_root.get_node('animation_root')
+	var animation_node = Hierarchy.find_child_with_fallback(anim_root,
+	'animation_chomp', facing_name)
+	assert(animation_node, 'An animation for chomp exists.')
 	
-	if animation_name:
-		self.sprite_presenter.queue_presentable(Presentable.new(
-			op_name,
-			Presentable.animation_op,
-			[player, animation_name], true
-		))
+	if animation_node:
+		self.sprite_presenter.queue_presentable(Presentable.new(op_name,
+			Presentable.sprite_animation_op, [self.sprite_root, animation_node],
+			true))
 
 	bitee.die()
 	return true

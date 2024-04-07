@@ -58,6 +58,7 @@ modifier: String) -> Node:
 
 # Returns the target sprite object.
 static func make_only_visible_sibling(parent: Node, target_sprite_name: String) -> Sprite2D:
+	# sprite_root isn't going to be owned, so the fourth param here is important.
 	var sprites = parent.find_children('*', 'Sprite2D', false, false)
 	var target_sprite
 	for sprite in sprites:
