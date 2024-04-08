@@ -22,6 +22,8 @@ static func animation_op(done_signal, animation_player, animation_name):
 	await animation_player.animation_finished
 	done_signal.emit()
 
+#static func bump_animation_op():
+
 static func sprite_animation_op(done_signal, sprite_root: IndividualSpriteRoot,
 animated_sprite: AnimatedSprite2D):
 	animated_sprite.visible = true
