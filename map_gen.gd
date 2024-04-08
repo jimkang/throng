@@ -26,7 +26,6 @@ static func generate_map(number_of_iterations: int,
 				if branch_connections.size() > 0:
 					iter_node_pts.append(branch_connections.back())
 		current_node_pts = iter_node_pts
-	# NEXT: Still producing duplicate points
 	print('floor_points: ', floor_points.to_array())
 	return floor_points.to_array()
 

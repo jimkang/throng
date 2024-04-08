@@ -58,7 +58,6 @@ func move(move_vector: Vector2):
 func change_position(pos: Vector2, _facing: Vector2i):
 	self.position = pos
 	self.facing = _facing
-	# NEXT: Facing sprites
 	print('Queuing sprite move of ', self.readable_name, ' to ', self.position)
 	self.sprite_presenter.queue_presentable(Presentable.new(
 		self.readable_name + ' move', Presentable.sprite_move_op,
