@@ -16,6 +16,7 @@ func act_on_other(other: Individual):
 		super.act_on_other(other)
 
 func bite(bitee: Individual):
+	# NEXT: Should turn in that direction to bite.
 	var facing_name = Geometry.name_for_direction(self.facing)
 	var op_name = self.readable_name + ' biting ' + bitee.readable_name
 	

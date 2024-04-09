@@ -33,6 +33,15 @@ texture = ExtResource("1_a8jrl")
 region_enabled = true
 region_rect = Rect2(459, 136, 16, 16)
 
+[node name="sprite_facing_down" type="Sprite2D" parent="sprite_root"]
+process_mode = 1
+visible = false
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("1_a8jrl")
+region_enabled = true
+region_rect = Rect2(459, 136, 16, 16)
+
 [node name="sprite_facing_up" type="Sprite2D" parent="sprite_root"]
 process_mode = 1
 visible = false
@@ -58,3 +67,4 @@ texture = ExtResource("6_o73dr")
 region_rect = Rect2(459, 136, 16, 16)
 
 [node name="animation_root" type="Node2D" parent="sprite_root"]
+visible = false

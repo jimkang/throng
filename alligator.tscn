@@ -1,47 +1,50 @@
-[gd_scene load_steps=18 format=3 uid="uid://v7pwf8m5fgod"]
+[gd_scene load_steps=31 format=3 uid="uid://v7pwf8m5fgod"]
 
 [ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://individual.tscn" id="1_frxgq"]
 [ext_resource type="Script" path="res://alligator.gd" id="2_4ny0q"]
 [ext_resource type="Texture2D" uid="uid://djpae3wtrso2y" path="res://art/alligator_chomp_sheet.png" id="3_2cfss"]
 [ext_resource type="Texture2D" uid="uid://beyy37gcncpfx" path="res://art/alligator_facing_up.png" id="4_ix0vt"]
+[ext_resource type="Texture2D" uid="uid://dra21qikg0ac7" path="res://art/alligator_facing_down.png" id="4_qhpj1"]
 [ext_resource type="Texture2D" uid="uid://7gowta2nj8pw" path="res://art/alligator_facing_left.png" id="4_r0fam"]
 [ext_resource type="Texture2D" uid="uid://crw3y1n1rggir" path="res://art/alligator_default.png" id="5_l6hji"]
+[ext_resource type="Texture2D" uid="uid://xcipgkja0qgr" path="res://art/alligator_chomp_left_sheet.png" id="7_0juh6"]
 [ext_resource type="Texture2D" uid="uid://c4jdgb1oya1aa" path="res://art/alligator_chomp_up_sheet.png" id="7_5teva"]
+[ext_resource type="Texture2D" uid="uid://c44i8b10cvyip" path="res://art/alligator_chomp_down_sheet.png" id="9_fo61y"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h6ycc"]
-atlas = ExtResource("7_5teva")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gvby"]
+atlas = ExtResource("7_0juh6")
+region = Rect2(0, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nalju"]
-atlas = ExtResource("7_5teva")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo6gx"]
+atlas = ExtResource("7_0juh6")
+region = Rect2(18, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tg7fo"]
-atlas = ExtResource("7_5teva")
-region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ype1a"]
+atlas = ExtResource("7_0juh6")
+region = Rect2(36, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_48yws"]
-atlas = ExtResource("7_5teva")
-region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_654sx"]
+atlas = ExtResource("7_0juh6")
+region = Rect2(54, 0, 18, 18)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ffbjb"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ehlkf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h6ycc")
+"texture": SubResource("AtlasTexture_6gvby")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nalju")
+"texture": SubResource("AtlasTexture_eo6gx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tg7fo")
+"texture": SubResource("AtlasTexture_ype1a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_48yws")
+"texture": SubResource("AtlasTexture_654sx")
 }],
 "loop": false,
 "name": &"default",
-"speed": 4.0
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5dhjc"]
@@ -80,6 +83,78 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6ycc"]
+atlas = ExtResource("7_5teva")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nalju"]
+atlas = ExtResource("7_5teva")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg7fo"]
+atlas = ExtResource("7_5teva")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48yws"]
+atlas = ExtResource("7_5teva")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ffbjb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6ycc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nalju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg7fo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48yws")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrwy7"]
+atlas = ExtResource("9_fo61y")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyxhf"]
+atlas = ExtResource("9_fo61y")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70ii7"]
+atlas = ExtResource("9_fo61y")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li0f5"]
+atlas = ExtResource("9_fo61y")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_saiwt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrwy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyxhf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70ii7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li0f5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}]
+
 [node name="Alligator" instance=ExtResource("1_frxgq")]
 script = ExtResource("2_4ny0q")
 color_set = PackedColorArray(0.631373, 0.0862745, 0.490196, 1, 0.32549, 0.2, 0.0509804, 1)
@@ -90,25 +165,24 @@ hframes = 4
 frame = 1
 region_rect = Rect2(1, 1, 67, 16)
 
-[node name="sprite_facing_up" parent="sprite_root" index="1"]
+[node name="sprite_facing_down" parent="sprite_root" index="1"]
+texture = ExtResource("4_qhpj1")
+region_enabled = false
+
+[node name="sprite_facing_up" parent="sprite_root" index="2"]
 texture = ExtResource("4_ix0vt")
 
-[node name="sprite_facing_left" parent="sprite_root" index="2"]
+[node name="sprite_facing_left" parent="sprite_root" index="3"]
 texture = ExtResource("4_r0fam")
 
-[node name="sprite_facing_right" parent="sprite_root" index="3"]
+[node name="sprite_facing_right" parent="sprite_root" index="4"]
 texture = ExtResource("5_l6hji")
-
-[node name="animation_root" parent="sprite_root" index="4"]
-visible = false
 
 [node name="animation_chomp" type="AnimatedSprite2D" parent="sprite_root/animation_root" index="0"]
 visible = false
 texture_filter = 1
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_ffbjb")
-frame = 3
-frame_progress = 1.0
+sprite_frames = SubResource("SpriteFrames_ehlkf")
 
 [node name="animation_chomp_right" type="AnimatedSprite2D" parent="sprite_root/animation_root" index="1"]
 visible = false
@@ -121,5 +195,13 @@ visible = false
 texture_filter = 1
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_ffbjb")
+frame = 3
+frame_progress = 1.0
+
+[node name="animation_chomp_down" type="AnimatedSprite2D" parent="sprite_root/animation_root" index="3"]
+visible = false
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_saiwt")
 frame = 3
 frame_progress = 1.0
