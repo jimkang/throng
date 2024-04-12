@@ -36,6 +36,12 @@ func move(move_vector: Vector2):
 	var next_pos = self.position + move_vector
 	var dest_cell_data := cell_data_at_pos(next_pos)
 	var result = false
+	
+	# Always turn in the requested direction, even if no move or action
+	# can be done.
+	var direction = move_vector.normalized()
+	face_direction(direction)
+			
 	if dest_cell_data:
 		# If the dest is on a floor, then we can do something, maybe.
 		if dest_cell_data.get_custom_data('is_floor'):
@@ -50,18 +56,23 @@ func move(move_vector: Vector2):
 					act_on_other(colliding_thing)
 			else:
 				# If nothing's on the floor there, we can go there.
-				self.change_position(self.position + move_vector,
-				move_vector.normalized())
+				self.change_position(self.position + move_vector)
 				result = true
 	return result
 
-func change_position(pos: Vector2, _facing: Vector2i):
+func face_direction(direction: Vector2i):
+	self.facing = direction
+	self.sprite_presenter.queue_presentable(Presentable.new(
+		self.readable_name + ' turn', Presentable.sprite_face_op,
+		[self.sprite_root, self.facing], false
+	))
+
+func change_position(pos: Vector2):
 	self.position = pos
-	self.facing = _facing
 	print('Queuing sprite move of ', self.readable_name, ' to ', self.position)
 	self.sprite_presenter.queue_presentable(Presentable.new(
 		self.readable_name + ' move', Presentable.sprite_move_op,
-		[self.sprite_root, self.position, self.facing], false
+		[self.sprite_root, self.position], false
 	))
 
 func die():

@@ -53,7 +53,8 @@ func _ready():
 	# won't work until the are.
 	# position is the origin of the node. Since the node centers its children
 	# around the origin, we have to put the position in the center of the tile.
-	player.change_position((player_location + half_unit_vec) * tile_size, Vector2i.DOWN)
+	player.face_direction(Vector2i.DOWN)
+	player.change_position((player_location + half_unit_vec) * tile_size)
 
 	var throng = throng_scene.instantiate()
 	throng.throng_id = 'throng_player'
@@ -69,7 +70,8 @@ func _ready():
 		individual.readable_name = '%s_%d' % [individual.name, i]
 		add_child(individual)
 		var location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
-		individual.change_position((location + half_unit_vec) * tile_size, Vector2i.DOWN)
+		individual.face_direction(Vector2i.DOWN)
+		individual.change_position((location + half_unit_vec) * tile_size)
 	
 	throng.add(player)
 	self.sprite_presenter.sync_presentation()

@@ -42,8 +42,8 @@ animated_sprite: AnimatedSprite2D):
 	active_sprite.visible = true
 	done_signal.emit()
 
-static func sprite_move_op(_done_signal, sprite_root: Node2D, new_position, facing: Vector2i):
-	print('move_op with sprite: ', sprite_root.name)
+static func sprite_face_op(_done_signal, sprite_root: Node2D, facing: Vector2i):
+	print('face_op with sprite: ', sprite_root.name)
 	var facing_sprite_name = 'sprite_facing_%s' % Geometry.name_for_direction(facing)
 	print('facing_sprite:', facing_sprite_name)
 	var facing_sprite_is_visible = false
@@ -57,7 +57,8 @@ static func sprite_move_op(_done_signal, sprite_root: Node2D, new_position, faci
 		var sprite = sprite_root.find_child('sprite_default', false, false)
 		if sprite:
 			sprite.visible = true
-	
+
+static func sprite_move_op(_done_signal, sprite_root: Node2D, new_position: Vector2i):
 	sprite_root.position = new_position
 
 static func free_op(_done_signal, node):
