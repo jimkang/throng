@@ -13,6 +13,5 @@ func _draw():
 		indicator_rect.position *= sprite.scale
 		indicator_rect.size *= sprite.scale
 		self.draw_rect(indicator_rect, self.throng_color, false, 2.0)
-
-func free_sprite_root_op():
-	self.queue_free()
+	if self.sprite_facing: # How do I actually get sprite.facing? Draw an object diagram.
+		print('ok') 

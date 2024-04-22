@@ -18,7 +18,7 @@ var rng: RandomNumberGenerator
 
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
-func _ready():	
+func _ready():
 	var seed_val = randi()
 	#var seed_val = 4153177625 # Guy appears to get eaten before he moves into range.
 	#var seed_val = 4051854102 # Trying to make an individual move that's already freed.
