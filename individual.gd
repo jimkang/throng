@@ -63,8 +63,8 @@ func move(move_vector: Vector2):
 func face_direction(direction: Vector2i):
 	self.facing = direction
 	self.sprite_presenter.queue_presentable(Presentable.new(
-		self.readable_name + ' turn', Presentable.sprite_face_op,
-		[self.sprite_root, self.facing], false
+		self.readable_name + ' turn', func(_done, dir): self.sprite_root.face(dir),
+		[self.facing], false
 	))
 
 func change_position(pos: Vector2):
