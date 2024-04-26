@@ -23,6 +23,8 @@ shape = SubResource("RectangleShape2D_twcyw")
 
 [node name="sprite_root" type="Node2D" parent="."]
 script = ExtResource("2_x3ccl")
+draw_throng_indicator = null
+throng_color = null
 
 [node name="sprite_default" type="Sprite2D" parent="sprite_root"]
 process_mode = 1

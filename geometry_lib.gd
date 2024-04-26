@@ -31,4 +31,7 @@ static func name_for_direction(dir: Vector2i):
 			return 'up'
 		Vector2i.DOWN:
 			return 'down'
-	
+
+static func rotate_around_center(vec: Vector2, center: Vector2, angle: float) -> Vector2:
+	var vec_from_center = vec - center
+	return vec_from_center.rotated(angle)
