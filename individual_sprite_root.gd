@@ -21,8 +21,12 @@ func draw_direction_indicator():
 		# The indicator rect will be some proportion of the sprite rect, then moved to the right
 		# edge of the sprite rect and centered vertically.
 		indicator_rect.size *= self.indicator_scale
-		indicator_rect.position.x = sprite_rect.size.x * (1.0 - self.indicator_scale)
-		indicator_rect.position.y = sprite_rect.size.y/2 - indicator_rect.size.y/2
+		# Once scaled, the indicator will be small and in the upper left corner.
+		# Move it to the right edge of the sprite, then back the width of the indicator.
+		# (0 is the center of the sprite.)
+		indicator_rect.position.x = sprite_rect.size.x/2 - indicator_rect.size.x
+		# Move it to the middle (0) but offset by half the height of the indicator.
+		indicator_rect.position.y = -indicator_rect.size.y/2
 		var triangle_pts = [
 			indicator_rect.position,
 			Vector2(indicator_rect.end.x, indicator_rect.position.y + indicator_rect.size.y/2),
