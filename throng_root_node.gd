@@ -6,8 +6,8 @@ extends Node2D
 @export var tile_size: int
 
 @onready var sprite_presenter: SpritePresenter = $sprite_presenter
-var individual_scene = preload('res://individual.tscn')
-var alligator_scene = preload("res://alligator.tscn")
+var individual_scene = preload('gdrl-shared/individual.tscn')
+var alligator_scene = preload('gdrl-shared/alligator.tscn')
 var throng_scene = preload('res://throng.tscn')
 
 var tile_indexes_for_names = {
@@ -19,7 +19,8 @@ var rng: RandomNumberGenerator
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var seed_val = randi()
+	#var seed_val = randi()
+	var seed_val = 227686610 # Alligator in throng doing extra moves.
 	#var seed_val = 4153177625 # Guy appears to get eaten before he moves into range.
 	#var seed_val = 4051854102 # Trying to make an individual move that's already freed.
 	#var seed_val = 2262306517 # Generates an alligator on top of a blob
@@ -64,7 +65,7 @@ func _ready():
 	for i in 5:
 		var indiv_scene = individual_scene
 		if rng.randi_range(0, 3) > 0:
-			indiv_scene = alligator_scene		
+			indiv_scene = alligator_scene
 		var individual = indiv_scene.instantiate()
 		individual.rng = self.rng
 		individual.readable_name = '%s_%d' % [individual.name, i]
@@ -72,7 +73,7 @@ func _ready():
 		var location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
 		individual.face_direction(Vector2i.DOWN)
 		individual.change_position((location + half_unit_vec) * tile_size)
-	
+
 	throng.add(player)
 	self.sprite_presenter.sync_presentation()
 

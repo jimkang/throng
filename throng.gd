@@ -1,13 +1,15 @@
 class_name Throng
-extends Node2D
+extends Actor
 
-@export var move_size: int 
+@export var move_size: int
 @export var throng_id: String
 @export var initiative: int = 1
+@export var readable_name: String = 'player_throng'
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.add_to_group('throngs')
+	self.add_to_group('actors')
 
 func take_turn(event):
 	var x = 0
@@ -35,11 +37,11 @@ func move_throng(x: int, y: int):
 				sort_fn = Hierarchy.compare_bottomwise
 			else:
 				sort_fn = Hierarchy.compare_topwise
-				
+
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
 	individuals.sort_custom(sort_fn)
 	print('move_throng working on', individuals)
-	
+
 	var moved_individuals = []
 	for individual in individuals:
 		# We need to wait for the move to take effect so that the next
@@ -66,7 +68,8 @@ func add(individual: Node):
 		return
 	individual.add_to_group(self.throng_id)
 	individual.remove_from_group('individuals')
-	individual.sprite_root.draw_throng_indicator = true
-	individual.sprite_root.throng_color = Color.YELLOW
+	individual.remove_from_group('actors')
+	individual.sprite_root.draw_facing_indicator = true
+	individual.sprite_root.highlight_color = Color.YELLOW
 	individual.sprite_root.queue_redraw()
-	
+	individual.behavior = 'recruit'
