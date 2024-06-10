@@ -19,6 +19,8 @@ var rng: RandomNumberGenerator
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Behaviors.register_act('recruit', ThrongBehaviors.recruit)
+
 	#var seed_val = randi()
 	var seed_val = 227686610 # Alligator in throng doing extra moves.
 	#var seed_val = 4153177625 # Guy appears to get eaten before he moves into range.
