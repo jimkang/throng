@@ -1,5 +1,5 @@
 class_name Throng
-extends Actor
+extends Node2D
 
 @export var move_size: int
 @export var throng_id: String
@@ -50,7 +50,7 @@ func move_throng(x: int, y: int):
 		# was a physics change previous to this function call. We need that to
 		# be taken into account.
 		await get_tree().physics_frame
-		assert(individual is Individual)
+		assert(individual.has_method('move'))
 		print('Throng moving: ', individual.readable_name)
 		if individual.move(move):
 			moved_individuals.append(individual)

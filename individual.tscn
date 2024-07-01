@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdn0fkhuj8lgn"]
+
+[ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://gdrl-shared/thing.tscn" id="1_cs22q"]
+
+[node name="individual_root_node" instance=ExtResource("1_cs22q")]
+readable_name = ""
+color_set = PackedColorArray(0.854902, 0.333333, 0.266667, 1, 0.309804, 0.529412, 0.411765, 1)
+initiative = 10
+edible = true
+hp = 1
+metadata/individual = true

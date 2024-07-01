@@ -1,3 +1,4 @@
+class_name RootNode
 extends Node2D
 
 @export var map_dimensions: Vector2i
@@ -6,8 +7,8 @@ extends Node2D
 @export var tile_size: int
 
 @onready var sprite_presenter: SpritePresenter = $sprite_presenter
-var individual_scene = preload('gdrl-shared/individual.tscn')
-var alligator_scene = preload('gdrl-shared/alligator.tscn')
+var individual_scene = preload('res://individual.tscn')
+var alligator_scene = preload('res://individual_alligator.tscn')
 var throng_scene = preload('res://throng.tscn')
 
 var tile_indexes_for_names = {
@@ -21,12 +22,12 @@ var rng: RandomNumberGenerator
 func _ready():
 	Behaviors.register_act('recruit', ThrongBehaviors.recruit)
 
-	#var seed_val = randi()
-	var seed_val = 227686610 # Alligator in throng doing extra moves.
+	var seed_val = randi()
+	#var seed_val = 227686610 # Alligator in throng doing extra moves.
 	#var seed_val = 4153177625 # Guy appears to get eaten before he moves into range.
-	#var seed_val = 4051854102 # Trying to make an individual move that's already freed.
+	#var seed_val = 4051854102 # Trying to make an thing move that's already freed.
 	#var seed_val = 2262306517 # Generates an alligator on top of a blob
-	#var seed_val = 3637569141 # Immediate two individuals overlapping
+	#var seed_val = 3637569141 # Immediate two things overlapping
 	#var seed_val = 1794514250 # Up, right, right: Guy gets eaten by alligator after moving past it.
 	print('seed: ', seed_val)
 	self.rng = RandomNumberGenerator.new()
