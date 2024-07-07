@@ -29,3 +29,5 @@ script = ExtResource("8_u2t4c")
 
 [node name="tests" type="Node" parent="."]
 script = ExtResource("10_xjbur")
+
+[node name="liminal_space" type="Node2D" parent="."]

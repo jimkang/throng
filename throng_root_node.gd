@@ -10,6 +10,7 @@ extends Node2D
 var individual_scene = preload('res://individual.tscn')
 var alligator_scene = preload('res://individual_alligator.tscn')
 var throng_scene = preload('res://throng.tscn')
+var exit_scene = preload('res://gdrl-shared/exit.tscn')
 
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
@@ -69,14 +70,10 @@ func _ready():
 		var indiv_scene = individual_scene
 		if rng.randi_range(0, 3) > 0:
 			indiv_scene = alligator_scene
-		var individual = indiv_scene.instantiate()
-		individual.rng = self.rng
-		individual.readable_name = '%s_%d' % [individual.name, i]
-		add_child(individual)
-		var location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
-		individual.face_direction(Vector2i.DOWN)
-		individual.change_position((location + half_unit_vec) * tile_size)
+		generate_at_random_place(indiv_scene, i, possible_individual_locations)
 
+	generate_at_random_place(exit_scene, 0, possible_individual_locations)
+	
 	throng.add(player)
 	self.sprite_presenter.sync_presentation()
 
@@ -85,3 +82,14 @@ func stall_op(done_signal, seconds):
 	await self.get_tree().create_timer(seconds).timeout
 	print('Stall end')
 	done_signal.emit()
+
+func generate_at_random_place(thing_scene, name_index, locations):
+	var thing = thing_scene.instantiate()
+	thing.rng = self.rng
+	if name_index > -1:
+		thing.readable_name = '%s_%d' % [thing.name, name_index]
+	self.add_child(thing)
+	var location = Vector2(BasicUtils.pop_random(locations, self.rng))
+	thing.face_direction(Vector2i.DOWN)
+	thing.change_position((location + half_unit_vec) * tile_size)
+	return thing
