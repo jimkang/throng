@@ -69,7 +69,8 @@ func add(individual: Node):
 	individual.add_to_group(self.throng_id)
 	individual.remove_from_group('individuals')
 	individual.remove_from_group('actors')
-	individual.sprite_root.draw_facing_indicator = true
-	individual.sprite_root.highlight_color = Color.YELLOW
-	individual.sprite_root.queue_redraw()
+	if individual.sprite_root:
+		individual.sprite_root.draw_facing_indicator = true
+		individual.sprite_root.highlight_color = Color.YELLOW
+		individual.sprite_root.queue_redraw()
 	individual.behavior = 'recruit'
