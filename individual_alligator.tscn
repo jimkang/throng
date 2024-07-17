@@ -4,7 +4,7 @@
 
 [node name="individual_alligator_root" instance=ExtResource("1_yfulo")]
 readable_name = ""
-color_set = PackedColorArray(0.976471, 0.894118, 0.980392, 1, 0.376471, 0.109804, 0, 1)
+color_set = PackedColorArray(0.221237, 0.565561, 0.262898, 1, 0.376471, 0.109804, 0, 1)
 initiative = 10
 edible = true
 hp = 1
