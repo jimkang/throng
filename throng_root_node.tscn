@@ -31,3 +31,5 @@ script = ExtResource("8_u2t4c")
 script = ExtResource("10_xjbur")
 
 [node name="liminal_space" type="Node2D" parent="."]
+position = Vector2(-100, -100)
+scale = Vector2(4, 4)
