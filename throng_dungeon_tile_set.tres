@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://doexlnl8g0gf"]
 
-[ext_resource type="Texture2D" uid="uid://725a3skhyu2e" path="res://gdrl-shared/art/monochrome-transparent.png" id="1_kn2y6"]
+[ext_resource type="Texture2D" uid="uid://725a3skhyu2e" path="res://art/monochrome-transparent.png" id="1_kn2y6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2jj7y"]
 resource_name = "dungeon_atlas"
