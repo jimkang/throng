@@ -73,14 +73,12 @@ func _ready():
 		generate_at_random_place(indiv_scene, i, possible_individual_locations)
 
 	generate_at_random_place(exit_scene, 0, possible_individual_locations)
-	
+
 	throng.add(player)
 	self.sprite_presenter.sync_presentation()
 
 func stall_op(done_signal, seconds):
-	print('Stall start')
 	await self.get_tree().create_timer(seconds).timeout
-	print('Stall end')
 	done_signal.emit()
 
 func generate_at_random_place(thing_scene, name_index, locations):

@@ -40,7 +40,7 @@ func move_throng(x: int, y: int):
 
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
 	individuals.sort_custom(sort_fn)
-	print('move_throng working on', individuals)
+	# print('move_throng working on', individuals)
 
 	var moved_individuals = []
 	for individual in individuals:
@@ -51,7 +51,7 @@ func move_throng(x: int, y: int):
 		# be taken into account.
 		await get_tree().physics_frame
 		assert(individual.has_method('move'))
-		print('Throng moving: ', individual.readable_name)
+		# print('Throng moving: ', individual.readable_name)
 		if individual.move(move):
 			moved_individuals.append(individual)
 
