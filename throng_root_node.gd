@@ -17,6 +17,7 @@ var tile_indexes_for_names = {
 }
 const half_unit_vec = Vector2(0.5, 0.5)
 var rng: RandomNumberGenerator
+var level_usher: LevelUsher
 
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
@@ -33,6 +34,8 @@ func _ready():
 	print('seed: ', seed_val)
 	self.rng = RandomNumberGenerator.new()
 	self.rng.seed = seed_val
+	
+	self.level_usher = LevelUsher.new($/root/game_root/liminal_space)
 
 	var tilemap = $dungeon_tilemap
 	tilemap.add_layer(0)
