@@ -9,7 +9,7 @@ static func recruit(recruiter: Node, recruitee: Node):
 		var self_throng_id = get_throng_id(recruiter)
 		var throng: Throng = Hierarchy.find_obj(
 			root.get_children(),
-			func(obj): return obj.name == 'Throng' and obj.throng_id == self_throng_id
+			func(obj): return obj.name == 'throng' and obj.throng_id == self_throng_id
 		)
 		throng.add(recruitee)
 

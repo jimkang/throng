@@ -11,13 +11,13 @@ var individual_scene = preload('res://individual.tscn')
 var alligator_scene = preload('res://individual_alligator.tscn')
 var throng_scene = preload('res://throng.tscn')
 var exit_scene = preload('res://gdrl-shared/exit.tscn')
+@onready var tilemap: TileMap = $dungeon_tilemap
 
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
 }
 const half_unit_vec = Vector2(0.5, 0.5)
 var rng: RandomNumberGenerator
-var level_usher: LevelUsher
 
 #var dungeon_tile_set = preload('res://throng_dungeon_tile_set.tres').instantiate()
 # Called when the node enters the scene tree for the first time.
@@ -35,10 +35,7 @@ func _ready():
 	self.rng = RandomNumberGenerator.new()
 	self.rng.seed = seed_val
 	
-	self.level_usher = LevelUsher.new($/root/game_root/liminal_space)
-
 	var tilemap = $dungeon_tilemap
-	tilemap.add_layer(0)
 	var floor_points = MapGen.generate_map(
 		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
 		map_gen_branch_len_range,
@@ -64,9 +61,7 @@ func _ready():
 	player.face_direction(Vector2i.DOWN)
 	player.change_position((player_location + half_unit_vec) * tile_size)
 
-	var throng = throng_scene.instantiate()
-	throng.throng_id = 'throng_player'
-	add_child(throng)
+	var throng = $throng
 	throng.position = player.position
 
 	for i in 5:
@@ -80,15 +75,55 @@ func _ready():
 	throng.add(player)
 	self.sprite_presenter.sync_presentation()
 
+func clear_current_level():
+	self.tilemap.clear()
+	var non_permanent_children = BasicUtils.filter(
+		self.get_children(),
+		func(child: Node): return !child.get_meta('permanent')
+	)
+	non_permanent_children.map(self.delete_child)
+
+func delete_child(node: Thing):
+	node.remove_visual_representation()
+	self.remove_child(node)
+	node.queue_free()
+	
 func stall_op(done_signal, seconds):
 	await self.get_tree().create_timer(seconds).timeout
 	done_signal.emit()
+
+func set_up_new_level():
+	var floor_points = MapGen.generate_map(
+		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
+		map_gen_branch_len_range,
+		map_dimensions,
+		self.rng
+	)
+
+	for point in floor_points:
+		self.tilemap.set_cell(0, point, 0, tile_indexes_for_names.parquet)
+
+	var possible_individual_locations = floor_points.duplicate()
+	
+	for i in 5:
+		var indiv_scene = individual_scene
+		if rng.randi_range(0, 3) > 0:
+			indiv_scene = alligator_scene
+		self.generate_at_random_place(indiv_scene, i, possible_individual_locations)
+
+	self.generate_at_random_place(exit_scene, 0, possible_individual_locations)
+
+	self.sprite_presenter.sync_presentation()
+	return possible_individual_locations
 
 func generate_at_random_place(thing_scene, name_index, locations):
 	var thing = thing_scene.instantiate()
 	thing.rng = self.rng
 	if name_index > -1:
 		thing.readable_name = '%s_%d' % [thing.name, name_index]
+	return add_at_random_place(thing, locations)
+
+func add_at_random_place(thing, locations):
 	self.add_child(thing)
 	var location = Vector2(BasicUtils.pop_random(locations, self.rng))
 	thing.face_direction(Vector2i.DOWN)

@@ -11,5 +11,7 @@ func _on_child_order_changed():
 	if throng_members.all(func (member): return children.has(member)):
 		print('Entire throng is in liminal space.')
 		level_complete.emit()
+		# TODO: Maybe the throng should emit this? What if the last throng
+		# member dies after everyone else entered the liminal space?
 	else:
 		print('Some of throng is missing from liminal space.')

@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://don6vvn244jmf"]
+[gd_scene load_steps=10 format=3 uid="uid://don6vvn244jmf"]
 
 [ext_resource type="Script" path="res://throng_root_node.gd" id="1_q6lao"]
 [ext_resource type="TileSet" uid="uid://doexlnl8g0gf" path="res://throng_dungeon_tile_set.tres" id="2_o32av"]
 [ext_resource type="Script" path="res://gdrl-shared/dungeon_tilemap.gd" id="3_2jtog"]
 [ext_resource type="Script" path="res://gdrl-shared/sprite_presenter.gd" id="6_efj58"]
 [ext_resource type="Script" path="res://liminal_space.gd" id="7_r6yof"]
+[ext_resource type="Script" path="res://gdrl-shared/level_usher.gd" id="8_8iylm"]
 [ext_resource type="Script" path="res://gdrl-shared/turn_distributor.gd" id="8_u2t4c"]
+[ext_resource type="PackedScene" uid="uid://cac12t1cek4hm" path="res://throng.tscn" id="9_0pwvj"]
 [ext_resource type="Script" path="res://gdrl-shared/tests.gd" id="10_xjbur"]
 
 [node name="game_root" type="Node2D"]
@@ -21,19 +23,32 @@ scale = Vector2(4, 4)
 tile_set = ExtResource("2_o32av")
 format = 2
 script = ExtResource("3_2jtog")
+metadata/permanent = true
 
 [node name="sprite_presenter" type="Node2D" parent="."]
 script = ExtResource("6_efj58")
+metadata/permanent = true
 
 [node name="turn_distributor" type="Node" parent="."]
 script = ExtResource("8_u2t4c")
+metadata/permanent = true
 
 [node name="tests" type="Node" parent="."]
 script = ExtResource("10_xjbur")
+metadata/permanent = true
 
 [node name="liminal_space" type="Node2D" parent="."]
 position = Vector2(-100, -100)
 scale = Vector2(4, 4)
 script = ExtResource("7_r6yof")
+metadata/permanent = true
+
+[node name="level_usher" type="Node" parent="."]
+script = ExtResource("8_8iylm")
+metadata/permanent = true
+
+[node name="throng" parent="." instance=ExtResource("9_0pwvj")]
+throng_id = "throng_player"
+metadata/permanent = true
 
 [connection signal="child_order_changed" from="liminal_space" to="liminal_space" method="_on_child_order_changed"]
