@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://don6vvn244jmf"]
+[gd_scene load_steps=11 format=3 uid="uid://don6vvn244jmf"]
 
 [ext_resource type="Script" path="res://throng_root_node.gd" id="1_q6lao"]
 [ext_resource type="TileSet" uid="uid://doexlnl8g0gf" path="res://throng_dungeon_tile_set.tres" id="2_o32av"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://gdrl-shared/level_usher.gd" id="8_8iylm"]
 [ext_resource type="Script" path="res://gdrl-shared/turn_distributor.gd" id="8_u2t4c"]
 [ext_resource type="PackedScene" uid="uid://cac12t1cek4hm" path="res://throng.tscn" id="9_0pwvj"]
+[ext_resource type="Texture2D" uid="uid://bf0ygxubvy2sd" path="res://gdrl-shared/art/door-a.png" id="10_klxyb"]
 [ext_resource type="Script" path="res://gdrl-shared/tests.gd" id="10_xjbur"]
 
 [node name="game_root" type="Node2D"]
@@ -49,6 +50,13 @@ metadata/permanent = true
 
 [node name="throng" parent="." instance=ExtResource("9_0pwvj")]
 throng_id = "throng_player"
+metadata/permanent = true
+
+[node name="origin_marker" type="Sprite2D" parent="."]
+editor_description = "It's just here to show where 0, 0 is."
+modulate = Color(1, 1, 0, 1)
+scale = Vector2(4, 4)
+texture = ExtResource("10_klxyb")
 metadata/permanent = true
 
 [connection signal="child_order_changed" from="liminal_space" to="liminal_space" method="_on_child_order_changed"]

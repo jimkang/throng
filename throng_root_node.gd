@@ -35,7 +35,6 @@ func _ready():
 	self.rng = RandomNumberGenerator.new()
 	self.rng.seed = seed_val
 	
-	var tilemap = $dungeon_tilemap
 	var floor_points = MapGen.generate_map(
 		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
 		map_gen_branch_len_range,
@@ -82,7 +81,9 @@ func clear_current_level():
 		func(child: Node): return !child.get_meta('permanent')
 	)
 	non_permanent_children.map(self.delete_child)
-
+	# We need to wait for these deletes to take place before moving on.
+	await self.get_tree().physics_frame
+	
 func delete_child(node: Thing):
 	node.remove_visual_representation()
 	self.remove_child(node)
@@ -123,9 +124,14 @@ func generate_at_random_place(thing_scene, name_index, locations):
 		thing.readable_name = '%s_%d' % [thing.name, name_index]
 	return add_at_random_place(thing, locations)
 
+# Mutates locations.
 func add_at_random_place(thing, locations):
-	self.add_child(thing)
+	self.add_child(thing)	
 	var location = Vector2(BasicUtils.pop_random(locations, self.rng))
+	return self.move_to_place(thing, location)
+
+# Location is not a position! It's a grid coordinate.
+func move_to_place(thing, location):
 	thing.face_direction(Vector2i.DOWN)
 	thing.change_position((location + half_unit_vec) * tile_size)
 	return thing
