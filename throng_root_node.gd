@@ -34,7 +34,7 @@ func _ready():
 	print('seed: ', seed_val)
 	self.rng = RandomNumberGenerator.new()
 	self.rng.seed = seed_val
-	
+
 	var floor_points = MapGen.generate_map(
 		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
 		map_gen_branch_len_range,
@@ -83,12 +83,12 @@ func clear_current_level():
 	non_permanent_children.map(self.delete_child)
 	# We need to wait for these deletes to take place before moving on.
 	await self.get_tree().physics_frame
-	
+
 func delete_child(node: Thing):
 	node.remove_visual_representation()
 	self.remove_child(node)
 	node.queue_free()
-	
+
 func stall_op(done_signal, seconds):
 	await self.get_tree().create_timer(seconds).timeout
 	done_signal.emit()
@@ -105,7 +105,7 @@ func set_up_new_level():
 		self.tilemap.set_cell(0, point, 0, tile_indexes_for_names.parquet)
 
 	var possible_individual_locations = floor_points.duplicate()
-	
+
 	for i in 5:
 		var indiv_scene = individual_scene
 		if rng.randi_range(0, 3) > 0:
@@ -126,7 +126,7 @@ func generate_at_random_place(thing_scene, name_index, locations):
 
 # Mutates locations.
 func add_at_random_place(thing, locations):
-	self.add_child(thing)	
+	self.add_child(thing)
 	var location = Vector2(BasicUtils.pop_random(locations, self.rng))
 	return self.move_to_place(thing, location)
 
