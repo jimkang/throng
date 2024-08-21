@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://gdrl-shared/dungeon_tilemap.gd" id="3_2jtog"]
 [ext_resource type="Script" path="res://gdrl-shared/sprite_presenter.gd" id="6_efj58"]
 [ext_resource type="Script" path="res://liminal_space.gd" id="7_r6yof"]
-[ext_resource type="Script" path="res://gdrl-shared/level_usher.gd" id="8_8iylm"]
+[ext_resource type="Script" path="res://level_usher.gd" id="8_8iylm"]
 [ext_resource type="Script" path="res://gdrl-shared/turn_distributor.gd" id="8_u2t4c"]
 [ext_resource type="PackedScene" uid="uid://cac12t1cek4hm" path="res://throng.tscn" id="9_0pwvj"]
 [ext_resource type="Texture2D" uid="uid://bf0ygxubvy2sd" path="res://gdrl-shared/art/door-a.png" id="10_klxyb"]
