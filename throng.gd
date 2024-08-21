@@ -50,6 +50,10 @@ func move_throng(x: int, y: int):
 		# was a physics change previous to this function call. We need that to
 		# be taken into account.
 		await get_tree().physics_frame
+		if not individual:
+			# May have been freed in the physics_frame.
+			continue
+			
 		assert(individual.has_method('move'))
 		# print('Throng moving: ', individual.readable_name)
 		if individual.move(move):
