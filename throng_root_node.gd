@@ -12,6 +12,7 @@ var alligator_scene = preload('res://individual_alligator.tscn')
 var throng_scene = preload('res://throng.tscn')
 var exit_scene = preload('res://gdrl-shared/exit.tscn')
 @onready var tilemap: TileMap = $dungeon_tilemap
+@onready var liminal_space: LiminalSpace = $liminal_space
 
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
@@ -135,3 +136,8 @@ func move_to_place(thing, location):
 	thing.face_direction(Vector2i.DOWN)
 	thing.change_position((location + half_unit_vec) * tile_size)
 	return thing
+
+
+func _on_child_exiting_tree(node):
+	if node.is_in_group('throng_player'):
+		self.liminal_space.call_deferred('check_for_level_completion')

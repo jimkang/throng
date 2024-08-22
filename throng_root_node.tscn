@@ -59,4 +59,5 @@ scale = Vector2(4, 4)
 texture = ExtResource("10_klxyb")
 metadata/permanent = true
 
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="child_order_changed" from="liminal_space" to="liminal_space" method="_on_child_order_changed"]
