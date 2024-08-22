@@ -13,6 +13,7 @@ var throng_scene = preload('res://throng.tscn')
 var exit_scene = preload('res://gdrl-shared/exit.tscn')
 @onready var tilemap: TileMap = $dungeon_tilemap
 @onready var liminal_space: LiminalSpace = $liminal_space
+@onready var level_contents_root: Node = $level_contents_root
 
 var tile_indexes_for_names = {
 	'parquet': Vector2i(16, 0)
@@ -36,43 +37,13 @@ func _ready():
 	self.rng = RandomNumberGenerator.new()
 	self.rng.seed = seed_val
 
-	var floor_points = MapGen.generate_map(
-		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
-		map_gen_branch_len_range,
-		map_dimensions,
-		self.rng
-	)
-
-	for point in floor_points:
-		tilemap.set_cell(0, point, 0, tile_indexes_for_names.parquet)
-
-	var possible_individual_locations = floor_points.duplicate()
-	var player = individual_scene.instantiate()
-	player.readable_name = 'player'
-	player.rng = self.rng
-	var player_location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
-
-	add_child(player)
-	# The Individuals must be in the tree before change_position can be called
-	# because get_node on absolute paths (which they need to get sprite_presenter)
-	# won't work until the are.
-	# position is the origin of the node. Since the node centers its children
-	# around the origin, we have to put the position in the center of the tile.
-	player.face_direction(Vector2i.DOWN)
-	player.change_position((player_location + half_unit_vec) * tile_size)
+	var possible_individual_locations = self.set_up_new_level()
+	var player = self.set_up_player(possible_individual_locations)
 
 	var throng = $throng
 	throng.position = player.position
-
-	for i in 5:
-		var indiv_scene = individual_scene
-		if rng.randi_range(0, 3) > 0:
-			indiv_scene = alligator_scene
-		generate_at_random_place(indiv_scene, i, possible_individual_locations)
-
-	generate_at_random_place(exit_scene, 0, possible_individual_locations)
-
 	throng.add(player)
+
 	self.sprite_presenter.sync_presentation()
 
 func clear_current_level():
@@ -118,6 +89,21 @@ func set_up_new_level():
 	self.sprite_presenter.sync_presentation()
 	return possible_individual_locations
 
+func set_up_player(possible_individual_locations: Array):
+	var player = individual_scene.instantiate()
+	player.readable_name = 'player'
+	player.rng = self.rng
+	var player_location = Vector2(BasicUtils.pop_random(possible_individual_locations, self.rng))
+	add_child(player)
+	# The Individuals must be in the tree before change_position can be called
+	# because get_node on absolute paths (which they need to get sprite_presenter)
+	# won't work until the are.
+	# position is the origin of the node. Since the node centers its children
+	# around the origin, we have to put the position in the center of the tile.
+	player.face_direction(Vector2i.DOWN)
+	player.change_position((player_location + half_unit_vec) * tile_size)
+	return player
+
 func generate_at_random_place(thing_scene, name_index, locations):
 	var thing = thing_scene.instantiate()
 	thing.rng = self.rng
@@ -136,7 +122,6 @@ func move_to_place(thing, location):
 	thing.face_direction(Vector2i.DOWN)
 	thing.change_position((location + half_unit_vec) * tile_size)
 	return thing
-
 
 func _on_child_exiting_tree(node):
 	if node.is_in_group('throng_player'):
