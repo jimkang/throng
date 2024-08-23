@@ -28,5 +28,6 @@ func check_for_level_completion():
 func emit_level_complete():
 	level_complete.emit()
 
-func reset_level_completed():
+func reset_level():
 	self.level_completed = false
+	Hierarchy.remove_all_children(self)

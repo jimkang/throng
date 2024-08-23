@@ -18,14 +18,14 @@ func usher_in_new_level():
 	self.move_guys_to_new_level(open_locations)
 	var root_children = self.level_contents_root.get_children()
 	var guys: Array[Node] = root_children.filter(Hierarchy.is_in_player_throng)
+	assert(guys.size() > 0)
 	self.throng.position = guys[0].position
 	print('Adopting %s\'s position %v. New throng.position: %v' %
 		[guys[0], guys[0].position, self.throng.position])
 	self.game_root.sprite_presenter.sync_presentation()
-	$/root/game_root/liminal_space.reset_level_completed()
+	$/root/game_root/liminal_space.reset_level()
 
 func move_guys_to_new_level(open_locations: Array):
-	# TODO: Get rid of extra guys in liminal space.
 	var throng_things = self.liminal_space.get_children().filter(
 		Hierarchy.is_in_player_throng)
 
