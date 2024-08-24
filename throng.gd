@@ -53,7 +53,7 @@ func move_throng(x: int, y: int):
 		if not individual:
 			# May have been freed in the physics_frame.
 			continue
-			
+
 		assert(individual.has_method('move'))
 		# print('Throng moving: ', individual.readable_name)
 		if individual.move(move):
@@ -78,3 +78,12 @@ func add(individual: Node):
 		individual.sprite_root.highlight_color = Color.YELLOW
 		individual.sprite_root.queue_redraw()
 	individual.behavior = 'recruit'
+
+func plant_throng(open_locations: Array, new_center: Vector2, level_contents_root: LevelContentsRoot):
+	self.position = new_center
+	var individuals = get_tree().get_nodes_in_group(self.throng_id)
+	var placement = Geometry.find_contiguous_group_placements(self.position,
+		open_locations, individuals.size())
+
+	for i in placement.size():
+		level_contents_root.move_to_place(individuals[i], placement[i])

@@ -16,6 +16,8 @@ func usher_in_new_level():
 	self.game_root.clear_current_level()
 	var open_locations: Array = self.game_root.set_up_new_level()
 	self.move_guys_to_new_level(open_locations)
+
+
 	var root_children = self.level_contents_root.get_children()
 	var guys: Array[Node] = root_children.filter(Hierarchy.is_in_player_throng)
 	assert(guys.size() > 0)
@@ -31,7 +33,6 @@ func move_guys_to_new_level(open_locations: Array):
 
 	for guy in throng_things:
 		guy.exit_liminal_space(self.level_contents_root)
-		# TODO: Make sure the throng stays together.
-		var location = Vector2(BasicUtils.pop_random(open_locations, self.game_root.rng))
-		# Can't do this while "flushing queries". Probably from remove_child.
-		self.level_contents_root.move_to_place(guy, location)
+
+	var throng_center = Vector2(BasicUtils.pop_random(open_locations, self.game_root.rng))
+	self.throng.plant_throng(open_locations, throng_center, self.level_contents_root)

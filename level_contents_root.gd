@@ -49,7 +49,7 @@ func add_at_random_place(thing, locations):
 # Location is not a position! It's a grid coordinate.
 func move_to_place(thing, location):
 	thing.face_direction(Vector2i.DOWN)
-	thing.change_position((location + Geometry.half_unit_vec) * tile_size)
+	thing.change_position((Vector2(location) + Geometry.half_unit_vec) * tile_size)
 	return thing
 
 func _on_child_exiting_tree(node):
