@@ -56,7 +56,7 @@ func stall_op(done_signal, seconds):
 	await self.get_tree().create_timer(seconds).timeout
 	done_signal.emit()
 
-func set_up_new_level():
+func set_up_new_level() -> Array[Vector2i]:
 	var floor_points = MapGen.generate_map(
 		rng.randi_range(map_gen_iteration_range[0], map_gen_iteration_range[0]),
 		map_gen_branch_len_range,
@@ -71,7 +71,7 @@ func set_up_new_level():
 	self.level_contents_root.populate_level(possible_individual_locations)
 
 	self.sprite_presenter.sync_presentation()
-	return possible_individual_locations
+	return possible_individual_locations as Array[Vector2i]
 
 func set_up_player(possible_individual_locations: Array):
 	var player = individual_scene.instantiate()

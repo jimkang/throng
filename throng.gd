@@ -79,7 +79,7 @@ func add(individual: Node):
 		individual.sprite_root.queue_redraw()
 	individual.behavior = 'recruit'
 
-func plant_throng(open_locations: Array, new_center: Vector2, level_contents_root: LevelContentsRoot):
+func plant_throng(open_locations: Array[Vector2i], new_center: Vector2, level_contents_root: LevelContentsRoot):
 	self.position = new_center
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
 	var placement = Geometry.find_contiguous_group_placements(self.position,

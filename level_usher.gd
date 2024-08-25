@@ -14,7 +14,7 @@ func _ready():
 func usher_in_new_level():
 	print('Starting new level.')
 	self.game_root.clear_current_level()
-	var open_locations: Array = self.game_root.set_up_new_level()
+	var open_locations: Array[Vector2i] = self.game_root.set_up_new_level()
 	self.move_guys_to_new_level(open_locations)
 
 

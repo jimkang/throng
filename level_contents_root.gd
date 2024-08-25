@@ -23,10 +23,10 @@ func delete_child(node: Thing):
 	node.queue_free()
 
 func populate_level(possible_individual_locations: Array):
-	for i in 5:
+	for i in 20:
 		var indiv_scene = individual_scene
-		if rng.randi_range(0, 3) > 0:
-			indiv_scene = alligator_scene
+		#if rng.randi_range(0, 3) > 0:
+			#indiv_scene = alligator_scene
 		self.generate_at_random_place(indiv_scene, i, possible_individual_locations)
 
 	self.generate_at_random_place(exit_scene, 0, possible_individual_locations)
