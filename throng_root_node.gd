@@ -7,7 +7,6 @@ extends Node2D
 @export var tile_size: int
 
 var individual_scene = preload('res://individual.tscn')
-var throng_scene = preload('res://throng.tscn')
 
 @onready var sprite_presenter: SpritePresenter = $sprite_presenter
 @onready var tilemap: TileMap = $dungeon_tilemap
@@ -44,7 +43,7 @@ func _ready():
 
 	var throng = $throng
 	throng.position = player.position
-	throng.add(player)
+	throng.add(player)	
 
 	self.sprite_presenter.sync_presentation()
 

@@ -1,7 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdn0fkhuj8lgn"]
+[gd_scene load_steps=6 format=3 uid="uid://cdn0fkhuj8lgn"]
 
 [ext_resource type="PackedScene" uid="uid://b0ml1ekw8bqkw" path="res://gdrl-shared/thing.tscn" id="1_cs22q"]
+[ext_resource type="Texture2D" uid="uid://7eba68tsnm53" path="res://art/blob_default.png" id="2_ymkwh"]
+[ext_resource type="Texture2D" uid="uid://cgdwhaey4sx2j" path="res://art/blob_facing_left.png" id="3_vk2cc"]
+[ext_resource type="Texture2D" uid="uid://doy8to1riesl" path="res://art/blob-face-up.png" id="4_i8a4f"]
+[ext_resource type="Texture2D" uid="uid://lrjt2tja3ola" path="res://art/blob_facing_right.png" id="5_wmsl8"]
 
 [node name="individual_root_node" groups=["contactables"] instance=ExtResource("1_cs22q")]
+readable_name = "Individual"
 color_set = PackedColorArray(0.854902, 0.333333, 0.266667, 1, 0.309804, 0.529412, 0.411765, 1)
 metadata/individual = true
+
+[node name="sprite_facing_down" type="Sprite2D" parent="sprite_root/sprite_body" index="1"]
+process_mode = 1
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("2_ymkwh")
+region_rect = Rect2(459, 136, 16, 16)
+
+[node name="sprite_facing_left" type="Sprite2D" parent="sprite_root/sprite_body" index="2"]
+process_mode = 1
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("3_vk2cc")
+region_rect = Rect2(459, 136, 16, 16)
+
+[node name="sprite_facing_up" type="Sprite2D" parent="sprite_root/sprite_body" index="3"]
+process_mode = 1
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("4_i8a4f")
+region_rect = Rect2(459, 136, 16, 16)
+
+[node name="sprite_facing_right" type="Sprite2D" parent="sprite_root/sprite_body" index="4"]
+process_mode = 1
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("5_wmsl8")
+region_rect = Rect2(459, 136, 16, 16)
