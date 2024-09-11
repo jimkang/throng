@@ -12,6 +12,8 @@ static func recruit(recruiter: Node, recruitee: Node):
 			func(obj): return obj.name == 'throng' and obj.throng_id == self_throng_id
 		)
 		throng.add(recruitee)
+		return 'recruited'
+	return 'no-move'
 
 static func get_throng_id(individual: Node):
 	var groups = individual.get_groups().filter(func (group: String): return group.begins_with('throng_'))

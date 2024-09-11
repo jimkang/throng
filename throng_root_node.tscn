@@ -19,13 +19,11 @@ map_gen_iteration_range = [7, 10]
 map_gen_branch_len_range = [5.0, 7.0]
 tile_size = 64
 
-[node name="dungeon_tilemap" type="TileMap" parent="."]
+[node name="dungeon_tilemap" type="TileMapLayer" parent="."]
 texture_filter = 1
 scale = Vector2(4, 4)
 tile_set = ExtResource("2_o32av")
-format = 2
 script = ExtResource("3_2jtog")
-metadata/permanent = true
 
 [node name="sprite_presenter" type="Node2D" parent="."]
 script = ExtResource("6_efj58")

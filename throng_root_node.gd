@@ -9,7 +9,7 @@ extends Node2D
 var individual_scene = preload('res://individual.tscn')
 
 @onready var sprite_presenter: SpritePresenter = $sprite_presenter
-@onready var tilemap: TileMap = $dungeon_tilemap
+@onready var tilemap: TileMapLayer = $dungeon_tilemap
 @onready var level_contents_root: LevelContentsRoot = $level_contents_root
 
 var tile_indexes_for_names = {
@@ -64,7 +64,7 @@ func set_up_new_level() -> Array[Vector2i]:
 	)
 
 	for point in floor_points:
-		self.tilemap.set_cell(0, point, 0, tile_indexes_for_names.parquet)
+		self.tilemap.set_cell(point, 0, tile_indexes_for_names.parquet)
 
 	var possible_individual_locations = floor_points.duplicate()
 	self.level_contents_root.populate_level(possible_individual_locations)

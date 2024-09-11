@@ -4,7 +4,7 @@ extends Node
 @onready var game_root = $/root/game_root
 @onready var level_contents_root = $/root/game_root/level_contents_root
 @onready var liminal_space = $/root/game_root/liminal_space
-@onready var tilemap: TileMap = $/root/game_root/dungeon_tilemap
+@onready var tilemap: TileMapLayer = $/root/game_root/dungeon_tilemap
 @onready var throng: Throng = $/root/game_root/throng
 @onready var scene_tree = self.get_tree()
 
