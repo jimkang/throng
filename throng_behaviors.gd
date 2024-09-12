@@ -1,7 +1,7 @@
 class_name ThrongBehaviors
 extends Object
 
-static func recruit(recruiter: Node, recruitee: Node):
+static func recruit(recruiter: Node, recruitee: Node) -> Thing.ActionOutcome:
 	var groups = recruitee.get_groups()
 	var is_in_a_throng = groups.any(func (group): return group.begins_with('throng_'))
 	if not is_in_a_throng:
@@ -12,8 +12,8 @@ static func recruit(recruiter: Node, recruitee: Node):
 			func(obj): return obj.name == 'throng' and obj.throng_id == self_throng_id
 		)
 		throng.add(recruitee)
-		return 'recruited'
-	return 'no-move'
+		return Thing.ActionOutcome.recruited
+	return Thing.ActionOutcome.no_move
 
 static func get_throng_id(individual: Node):
 	var groups = individual.get_groups().filter(func (group: String): return group.begins_with('throng_'))

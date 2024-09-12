@@ -56,7 +56,7 @@ func move_throng(x: int, y: int):
 
 		assert(individual.has_method('move'))
 		# print('Throng moving: ', individual.readable_name)
-		if individual.move(move):
+		if individual.move(move) == Thing.ActionOutcome.moved:
 			moved_individuals.append(individual)
 
 		# Can't use the existing individuals var here because some of them may have died.
