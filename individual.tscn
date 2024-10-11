@@ -11,6 +11,9 @@ readable_name = "Individual"
 color_set = PackedColorArray(0.854902, 0.333333, 0.266667, 1, 0.309804, 0.529412, 0.411765, 1)
 metadata/individual = true
 
+[node name="sprite_root" parent="." index="1"]
+highlight_color = Color(0, 0, 0, 0)
+
 [node name="sprite_facing_down" type="Sprite2D" parent="sprite_root/sprite_body" index="1"]
 process_mode = 1
 texture_filter = 1

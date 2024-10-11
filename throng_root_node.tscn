@@ -15,8 +15,8 @@
 [node name="game_root" type="Node2D"]
 script = ExtResource("1_q6lao")
 map_dimensions = Vector2i(64, 64)
-map_gen_iteration_range = [7, 10]
-map_gen_branch_len_range = [5.0, 7.0]
+map_gen_iteration_range = [5, 10]
+map_gen_branch_len_range = [4.0, 7.0]
 tile_size = 64
 
 [node name="dungeon_tilemap" type="TileMapLayer" parent="."]

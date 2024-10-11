@@ -25,7 +25,7 @@ func delete_child(node: Thing):
 func populate_level(possible_individual_locations: Array):
 	for i in 20:
 		var indiv_scene = individual_scene
-		if rng.randi_range(0, 3) > 0:
+		if rng.randi_range(0, 1) > 0:
 			indiv_scene = alligator_scene
 		self.generate_at_random_place(indiv_scene, i, possible_individual_locations)
 
@@ -49,7 +49,7 @@ func add_at_random_place(thing, locations):
 # Location is not a position! It's a grid coordinate.
 func move_to_place(thing, location):
 	thing.face_direction(Vector2i.DOWN)
-	thing.change_position((Vector2(location) + Geometry.half_unit_vec) * tile_size)
+	thing.change_position(MapLib.spot_to_position(location, tile_size))
 	return thing
 
 func _on_child_exiting_tree(node):

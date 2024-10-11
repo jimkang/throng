@@ -84,5 +84,5 @@ func set_up_player(possible_individual_locations: Array):
 	# position is the origin of the node. Since the node centers its children
 	# around the origin, we have to put the position in the center of the tile.
 	player.face_direction(Vector2i.DOWN)
-	player.change_position((player_location + Geometry.half_unit_vec) * tile_size)
+	player.change_position(MapLib.spot_to_position(player_location, tile_size))
 	return player
