@@ -43,7 +43,7 @@ func _ready():
 
 	var throng = $throng
 	throng.position = player.position
-	throng.add(player)	
+	throng.add(player)
 
 	self.sprite_presenter.sync_presentation()
 

@@ -23,13 +23,10 @@ func take_turn(event: InputEvent):
 	if event.is_action_released('ui_down'):
 		y += 1
 
-	if x != 0 or y != 0:
-		await move_throng(x, y)
-	else:
-		if event.is_action_released('act'):
-			print('Act!')
+	if x != 0 or y != 0 or event.is_action_released('act'):
+		await push_throng(x, y)
 
-func move_throng(x: int, y: int):
+func push_throng(x: int, y: int):
 	var move = Vector2(x * move_size, y * move_size)
 	var sort_fn = Hierarchy.compare_leftward
 	if x > 0:
@@ -43,7 +40,6 @@ func move_throng(x: int, y: int):
 
 	var individuals = get_tree().get_nodes_in_group(self.throng_id)
 	individuals.sort_custom(sort_fn)
-	# print('move_throng working on', individuals)
 
 	var moved_individuals = []
 	for individual in individuals:
@@ -57,9 +53,17 @@ func move_throng(x: int, y: int):
 			# May have been freed in the physics_frame.
 			continue
 
-		assert(individual.has_method('move'))
+		assert(individual.has_method('push_in_direction'))
 		# print('Throng moving: ', individual.readable_name)
-		if individual.move(move) == Thing.ActionOutcome.moved:
+		var acting_but_not_moving = x == 0 and y == 0
+		var push_direction = move
+		if acting_but_not_moving:
+			push_direction = individual.facing * move_size
+		if individual.push_in_direction(
+			push_direction,
+			true,
+			true,
+			!acting_but_not_moving) == Thing.ActionOutcome.moved:
 			moved_individuals.append(individual)
 
 		# Can't use the existing individuals var here because some of them may have died.

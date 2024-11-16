@@ -23,7 +23,7 @@ func delete_child(node: Thing):
 	node.queue_free()
 
 func populate_level(possible_individual_locations: Array):
-	for i in 20:
+	for i in 15:
 		var indiv_scene = individual_scene
 		if rng.randi_range(0, 1) > 0:
 			indiv_scene = alligator_scene
