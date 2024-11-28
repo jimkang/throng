@@ -17,7 +17,6 @@ func usher_in_new_level():
 	var open_locations: Array[Vector2i] = self.game_root.set_up_new_level()
 	self.move_guys_to_new_level(open_locations)
 
-
 	var root_children = self.level_contents_root.get_children()
 	var guys: Array[Node] = root_children.filter(Hierarchy.is_in_player_throng)
 	assert(guys.size() > 0)

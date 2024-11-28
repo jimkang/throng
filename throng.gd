@@ -59,11 +59,12 @@ func push_throng(x: int, y: int):
 		var push_direction = move
 		if acting_but_not_moving:
 			push_direction = individual.facing * move_size
-		if individual.push_in_direction(
+		var push_result = await individual.push_in_direction(
 			push_direction,
 			true,
 			true,
-			!acting_but_not_moving) == Thing.ActionOutcome.moved:
+			!acting_but_not_moving) == Thing.ActionOutcome.moved
+		if push_result:
 			moved_individuals.append(individual)
 
 		# Can't use the existing individuals var here because some of them may have died.
@@ -84,7 +85,8 @@ func add(individual: Node):
 		individual.sprite_root.draw_facing_indicator = true
 		individual.sprite_root.highlight_color = Color.YELLOW
 		individual.sprite_root.queue_redraw()
-	individual.behavior = 'recruit'
+	if individual.is_in_group('potential_recruiters'):
+		individual.behavior = 'recruit'
 
 func plant_throng(open_locations: Array[Vector2i], new_center: Vector2, level_contents_root: LevelContentsRoot):
 	self.position = new_center

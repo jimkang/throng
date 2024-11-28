@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://doy8to1riesl" path="res://gdrl-shared/art/blob-face-up.png" id="4_i8a4f"]
 [ext_resource type="Texture2D" uid="uid://lrjt2tja3ola" path="res://gdrl-shared/art/blob_facing_right.png" id="5_wmsl8"]
 
-[node name="individual_root_node" groups=["contactables"] instance=ExtResource("1_cs22q")]
+[node name="individual_root_node" groups=["contactables", "potential_recruiters"] instance=ExtResource("1_cs22q")]
 readable_name = "Individual"
 color_set = PackedColorArray(0.854902, 0.333333, 0.266667, 1, 0.309804, 0.529412, 0.411765, 1)
 metadata/individual = true

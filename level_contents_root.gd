@@ -4,10 +4,19 @@ extends Node
 var individual_scene = preload('res://individual.tscn')
 var alligator_scene = preload('res://individual_alligator.tscn')
 var exit_scene = preload('res://gdrl-shared/exit.tscn')
+var pusher_scene = preload('res://pusher.tscn')
+
 var rng
 var tile_size
+
 @onready var liminal_space: LiminalSpace = $"../liminal_space"
 
+var occupant_scene_table
+var occupant_scene_table_def = RandomTableDef.new([
+	[4, individual_scene],
+	[2, pusher_scene],
+	[1, alligator_scene]
+])
 func depopulate_level():
 	var non_permanent_children = BasicUtils.filter(
 		self.get_children(),
@@ -23,11 +32,12 @@ func delete_child(node: Thing):
 	node.queue_free()
 
 func populate_level(possible_individual_locations: Array):
+	# Warning: Assumes self.rng is never reset.
+	if not self.occupant_scene_table:
+		self.occupant_scene_table = RandomTable.new(self.rng, self.occupant_scene_table_def)	
 	for i in 15:
-		var indiv_scene = individual_scene
-		if rng.randi_range(0, 1) > 0:
-			indiv_scene = alligator_scene
-		self.generate_at_random_place(indiv_scene, i, possible_individual_locations)
+		var occupant_scene = self.occupant_scene_table.roll()
+		self.generate_at_random_place(occupant_scene, i, possible_individual_locations)
 
 	self.generate_at_random_place(exit_scene, 0, possible_individual_locations)
 
