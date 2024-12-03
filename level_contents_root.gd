@@ -13,9 +13,9 @@ var tile_size
 
 var occupant_scene_table
 var occupant_scene_table_def = RandomTableDef.new([
-	[4, individual_scene],
+	[1, individual_scene],
 	[2, pusher_scene],
-	[1, alligator_scene]
+	[3, alligator_scene]
 ])
 func depopulate_level():
 	var non_permanent_children = BasicUtils.filter(

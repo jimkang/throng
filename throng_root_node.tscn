@@ -16,7 +16,7 @@
 script = ExtResource("1_q6lao")
 map_dimensions = Vector2i(64, 64)
 map_gen_iteration_range = [5, 10]
-map_gen_branch_len_range = [4.0, 7.0]
+map_gen_branch_len_range = [8.0, 10.0]
 tile_size = 64
 
 [node name="dungeon_tilemap" type="TileMapLayer" parent="."]
