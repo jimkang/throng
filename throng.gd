@@ -11,7 +11,7 @@ func _ready():
 	self.add_to_group('throngs')
 	#self.add_to_group('actors')
 
-func take_turn(event: InputEvent):
+func _unhandled_key_input(event: InputEvent) -> void:
 	var x = 0
 	var y = 0
 	if event.is_action_released('ui_left'):
