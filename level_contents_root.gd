@@ -35,7 +35,7 @@ func populate_level(possible_individual_locations: Array):
 	# Warning: Assumes self.rng is never reset.
 	if not self.occupant_scene_table:
 		self.occupant_scene_table = RandomTable.new(self.rng, self.occupant_scene_table_def)	
-	for i in 15:
+	for i in 20:
 		var occupant_scene = self.occupant_scene_table.roll()
 		self.generate_at_random_place(occupant_scene, i, possible_individual_locations)
 

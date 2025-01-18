@@ -9,7 +9,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.add_to_group('throngs')
-	self.add_to_group('actors')
+	#self.add_to_group('actors')
 
 func take_turn(event: InputEvent):
 	var x = 0

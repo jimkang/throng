@@ -15,7 +15,7 @@ func check_for_level_completion():
 	var children: Array[Node] = self.get_children()
 	#print('liminal_space children', children)
 	var throng_members: Array[Node] = scene_tree.get_nodes_in_group('throng_player')
-	if throng_members.all(func (member): return children.has(member)):
+	if throng_members.size() > 0 and throng_members.all(func (member): return children.has(member)):
 		print('Entire throng is in liminal space.')
 		self.level_completed = true
 
